@@ -1,0 +1,8 @@
+.build/
+.swiftpm/
+Package.resolved
+.DS_Store
+# Databases fetched for tests / local runs (Scripts/fetch-lookup-databases.sh)
+.databases/
+*.sqlite.zip
+*.sqlite3.zip
