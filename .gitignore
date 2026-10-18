@@ -6,3 +6,5 @@ Package.resolved
 .databases/
 *.sqlite.zip
 *.sqlite3.zip
+# Lean libretrodb generator work dir (Tools/libretrodb)
+.build-libretrodb/
