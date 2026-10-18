@@ -51,7 +51,10 @@ public actor PVLookup: ROMMetadataProvider, ArtworkLookupOnlineService, ArtworkL
     // MARK: - Properties
     private var databases: [LocalDatabases] = [.libretro, .openVGDB, .theGamesDB]
     private var isInitializing = false
-    private var initializationTask: Task<Void, Error>?
+    /// The one database initialization. Every path that reads a database
+    /// awaits it, so concurrent lookups wait for initialization instead of
+    /// seeing a database as missing while another one is still loading.
+    private var initializationTask: Task<Void, Never>?
 
     private struct CacheEntry<Value> {
         var value: Value?
@@ -101,12 +104,23 @@ public actor PVLookup: ROMMetadataProvider, ArtworkLookupOnlineService, ArtworkL
         }
     }
 
+    /// Initializes every database once. Concurrent callers all await the same
+    /// task. It used to return immediately for a second caller while the first
+    /// was still loading, and the get* helpers returned nil whenever any
+    /// database was mid-initialization (one shared isInitializing flag). Under
+    /// concurrent lookups (a library scan) a search then came back with only
+    /// the sources that happened to be ready.
     private func initializeDatabases() async {
-        guard !isInitializing else {
-            DLOG("Database initialization already in progress")
+        if let initializationTask {
+            await initializationTask.value
             return
         }
+        let task = Task { await self.performDatabaseInitialization() }
+        initializationTask = task
+        await task.value
+    }
 
+    private func performDatabaseInitialization() async {
         ILOG("Starting database initialization...")
         isInitializing = true
 #if canImport(OpenVGDB)
@@ -251,58 +265,39 @@ public actor PVLookup: ROMMetadataProvider, ArtworkLookupOnlineService, ArtworkL
 
     // Helper to ensure databases are initialized
     internal func ensureDatabasesInitialized() async throws {
-        if isInitializing {
-            // Wait a bit for initialization to complete
-            try await Task.sleep(nanoseconds: 1_000_000_000)
-        }
-
-        // If any database isn't initialized, do it now
-        if openVGDB == nil || libreTroDB == nil || theGamesDB == nil {
-            await initializeDatabases()
-        }
+        await initializeDatabases()
     }
 
     // Helper to safely access OpenVGDB
     private func getOpenVGDB() async -> OpenVGDB? {
-        if openVGDB == nil, !isInitializing {
-            isInitializing = true
-            do {
-                let db = try await OpenVGDB()
-                self.openVGDB = db
-            } catch {
-                ELOG("Failed to initialize OpenVGDB: \(error)")
-            }
-            isInitializing = false
-        }
+        await initializeDatabases()
         return openVGDB
     }
 
+
     // Helper to safely access TheGamesDB
     private func getTheGamesDB() async -> TheGamesDB? {
-        if theGamesDB == nil, !isInitializing {
-            isInitializing = true
-            do {
-                let db = try await TheGamesDB()
-                self.theGamesDB = db
-            } catch {
-                ELOG("Failed to initialize TheGamesDB: \(error)")
-            }
-            isInitializing = false
-        }
+        await initializeDatabases()
         return theGamesDB
     }
+
 
     // MARK: - Isolated Properties
     nonisolated private var isolatedOpenVGDB: OpenVGDB? {
         get async {
-            await openVGDB
+            await getOpenVGDB()
         }
     }
 
     nonisolated private var isolatedLibretroDB: libretrodb? {
         get async {
-            await libreTroDB
+            await getLibretroDB()
         }
+    }
+
+    private func getLibretroDB() async -> libretrodb? {
+        await initializeDatabases()
+        return libreTroDB
     }
 
     nonisolated private var isolatedTheGamesDB: TheGamesDB? {
@@ -1265,16 +1260,7 @@ public actor PVLookup: ROMMetadataProvider, ArtworkLookupOnlineService, ArtworkL
 #if canImport(ShiraGame)
     // Helper to safely access ShiraGame
     private func getShiraGame() async -> ShiraGame? {
-        if shiraGame == nil, !isInitializing {
-            isInitializing = true
-            do {
-                let game = try await ShiraGame()
-                self.shiraGame = game
-            } catch {
-                ELOG("Failed to initialize ShiraGame: \(error)")
-            }
-            isInitializing = false
-        }
+        await initializeDatabases()
         return shiraGame
     }
 #endif
