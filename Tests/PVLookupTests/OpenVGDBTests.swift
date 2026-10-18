@@ -362,4 +362,19 @@ struct OpenVGDBTests {
             try db.searchDatabase(usingKey: "romFileName = '' OR 1=1 --", value: "x")
         }
     }
+
+    @Test("Multi-system filename search matches the release title")
+    func multiSystemTitleMatch() throws {
+        let results = try #require(try db.searchDatabase(usingFilename: "Pugsley's Scavenger Hunt", systemIDs: [.NES, .SNES]))
+        #expect(results.contains { $0.gameTitle.contains("Pugsley") })
+    }
+
+    @Test("Multi-system search finds a title that is not in any filename")
+    func multiSystemTitleOnly() throws {
+        // releaseTitleName "The Addams Family: Pugsley's Scavenger Hunt" vs
+        // romFileName "Addams Family, The - Pugsley's ...": "Family: Pugsley"
+        // only appears in the title.
+        let results = try db.searchDatabase(usingFilename: "Family: Pugsley", systemIDs: [.NES])
+        #expect(results?.isEmpty == false)
+    }
 }

@@ -336,9 +336,12 @@ public extension OpenVGDB {
             SELECT DISTINCT \(properties)
             FROM ROMs rom
             LEFT JOIN RELEASES release USING (romID)
-            WHERE romFileName LIKE '\(pattern)' ESCAPE '\\'
+            WHERE (romFileName LIKE '\(pattern)' ESCAPE '\\'
+               OR releaseTitleName LIKE '\(pattern)' ESCAPE '\\')
         """
 
+        // Matches the release title too, like the single-system overload; a
+        // title-shaped query used to find nothing here (iFly 725c51aae).
         if !platformIDs.isEmpty {
             let platformIDList = platformIDs.map(String.init).joined(separator: ",")
             query += " AND systemID IN (\(platformIDList))"
@@ -441,7 +444,8 @@ private extension OpenVGDB {
     }
 
     func convertToOpenVGDBMetadata(_ dict: [String: NSObject]) -> OpenVGDBMetadata? {
-        guard let gameTitle = dict["gameTitle"] as? String else {
+        // A row with no title isn't a usable match (iFly 420f30920).
+        guard let gameTitle = dict["gameTitle"] as? String, !gameTitle.isEmpty else {
             return nil
         }
 
@@ -472,12 +476,13 @@ private extension OpenVGDB {
     private func convertToROMMetadata(_ dict: SQLQueryDict) -> ROMMetadata? {
         // Convert systemID to SystemIdentifier
         guard let systemIDInt = (dict["systemID"] as? NSNumber)?.intValue,
-              let systemIdentifier = SystemIdentifier.fromOpenVGDBID(systemIDInt) else {
+              let systemIdentifier = SystemIdentifier.fromOpenVGDBID(systemIDInt),
+              let gameTitle = dict["gameTitle"] as? String, !gameTitle.isEmpty else {
             return nil
         }
 
         return ROMMetadata(
-            gameTitle: (dict["gameTitle"] as? String) ?? "",
+            gameTitle: gameTitle,
             boxImageURL: dict["boxImageURL"] as? String,
             region: dict["region"] as? String,
             gameDescription: dict["gameDescription"] as? String,
