@@ -129,6 +129,24 @@ struct LibretroDBTests {
         #expect(wrongSystem == nil)
     }
 
+    // libretrodb stores serial_id hex-encoded ("HDR-0043" is 4844522D30303433).
+    // Callers pass the serial as printed on the disc, so the lookup has to
+    // encode it; matching the raw string found nothing (fixed 2026-10-17,
+    // ported from iFly 1d09b809b).
+    @Test("Search by disc serial as printed on the disc")
+    func searchBySerialAsPrinted() async throws {
+        let found = try #require(try await db.searchROM(bySerial: "HDR-0043", systemID: .Dreamcast))
+        #expect(found.gameTitle == "Sonic Adventure International")
+        // The serial comes back readable, not hex.
+        #expect(found.serial == "HDR-0043")
+
+        let lowercase = try await db.searchROM(bySerial: "hdr-0043", systemID: nil)
+        #expect(lowercase?.gameTitle == "Sonic Adventure International")
+
+        let wrongSystem = try await db.searchROM(bySerial: "HDR-0043", systemID: .PSX)
+        #expect(wrongSystem == nil)
+    }
+
     // MARK: - MD5 Search Tests
     @Test
     func searchByMD5CaseInsensitive() async throws {

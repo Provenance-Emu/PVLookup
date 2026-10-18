@@ -318,10 +318,13 @@ public extension libretrodb {
             LEFT JOIN regions ON games.region_id = regions.id
             LEFT JOIN genres ON games.genre_id = genres.id
             LEFT JOIN manufacturers ON platforms.manufacturer_id = manufacturers.id
-            WHERE games.serial_id = ? COLLATE NOCASE
+            WHERE (games.serial_id = ? COLLATE NOCASE OR games.serial_id = ?)
             """
 
-        var parameters: [Any] = [serial]
+        // serial_id is stored hex-encoded ("HDR-0043" is 4844522D30303433), so
+        // match the encoded serial. The raw value is matched too, for callers
+        // that already pass a serial_id from an earlier result.
+        var parameters: [Any] = [serial, Self.hexEncodedSerial(serial)]
 
         if let systemID = systemID {
             query += " AND games.platform_id = ?"
@@ -333,8 +336,31 @@ public extension libretrodb {
         let results = try db.execute(query: query, parameters: parameters)
         guard let first = results.first,
               let metadata = try? convertDictToMetadata(first) else { return nil }
-        let matchedSerial = (first["serial_id"] as? String) ?? serial
+        let matchedSerial = (first["serial_id"] as? String).map(Self.decodedSerial) ?? serial
         return convertToROMMetadata(metadata).withSerial(matchedSerial)
+    }
+
+    /// libretrodb's encoding of a disc serial in `serial_id`: the uppercased
+    /// serial's UTF-8 bytes as uppercase hex.
+    static func hexEncodedSerial(_ serial: String) -> String {
+        serial.uppercased().utf8.map { String(format: "%02X", $0) }.joined()
+    }
+
+    /// The readable serial for a `serial_id`, or the value unchanged when it
+    /// isn't hex-encoded printable ASCII.
+    static func decodedSerial(_ serialID: String) -> String {
+        let hex = Array(serialID.utf8)
+        guard !hex.isEmpty, hex.count.isMultiple(of: 2) else { return serialID }
+        var bytes: [UInt8] = []
+        bytes.reserveCapacity(hex.count / 2)
+        var index = 0
+        while index < hex.count {
+            guard let byte = UInt8(String(decoding: hex[index..<index + 2], as: UTF8.self), radix: 16),
+                  (0x20...0x7E).contains(byte) else { return serialID }
+            bytes.append(byte)
+            index += 2
+        }
+        return String(decoding: bytes, as: UTF8.self)
     }
 
     /// Search by MD5 or other key
