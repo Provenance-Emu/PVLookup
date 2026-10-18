@@ -339,4 +339,27 @@ struct OpenVGDBTests {
             #expect(urls2?.contains(where: { $0.absoluteString == expectedURL }) == true)
         }
     }
+
+    // A filename with an apostrophe used to be spliced into the SQL and broke
+    // the query, so system detection failed for any such ROM.
+    @Test("System detection by filename with an apostrophe")
+    func systemForApostropheFilename() throws {
+        let system = try db.system(forRomMD5: "00000000000000000000000000000000",
+                                   or: "Addams Family, The - Pugsley's Scavenger Hunt (USA).nes")
+        #expect(system == .NES)
+    }
+
+    @Test("Key lookup binds the value: an apostrophe in a filename matches")
+    func keyLookupWithApostrophe() throws {
+        let results = try #require(try db.searchDatabase(usingKey: "romFileName",
+                                                       value: "Addams Family, The - Pugsley's Scavenger Hunt (USA).nes"))
+        #expect(results.contains { $0.romHashMD5?.uppercased() == "67D870AAA3FD90109383A52BE3887C6E" })
+    }
+
+    @Test("Key lookup rejects a column that isn't searchable")
+    func keyLookupRejectsUnknownColumn() {
+        #expect(throws: (any Error).self) {
+            try db.searchDatabase(usingKey: "romFileName = '' OR 1=1 --", value: "x")
+        }
+    }
 }

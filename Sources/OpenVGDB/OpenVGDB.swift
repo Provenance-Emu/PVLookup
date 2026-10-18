@@ -71,6 +71,7 @@ public extension OpenVGDB {
         case invalidSystemID(Int)
         case invalidQuery(String)
         case databaseNotInitialized
+        case invalidSearchKey(String)
     }
 
     /// Valid system IDs from the database
@@ -123,10 +124,10 @@ public extension OpenVGDB {
                     release.releaseCoverDisc
                 FROM ROMs rom
                 JOIN RELEASES release ON rom.romID = release.romID
-                WHERE rom.romHashMD5 = '\(md5.uppercased())' COLLATE NOCASE
+                WHERE rom.romHashMD5 = ? COLLATE NOCASE
             """
 
-            if let results = try? db.execute(query: md5Query) {
+            if let results = try? db.execute(query: md5Query, parameters: [md5.uppercased()]) {
                 urls.append(contentsOf: extractURLs(from: results))
                 if !urls.isEmpty { return urls }
             }
@@ -188,10 +189,10 @@ public extension OpenVGDB {
                     release.releaseCoverDisc
                 FROM ROMs rom
                 JOIN RELEASES release ON rom.romID = release.romID
-                WHERE rom.romSerial = '\(serial)'
+                WHERE rom.romSerial = ?
             """
 
-            if let results = try? db.execute(query: serialQuery) {
+            if let results = try? db.execute(query: serialQuery, parameters: [serial]) {
                 urls.append(contentsOf: extractURLs(from: results))
             }
         }
@@ -256,31 +257,33 @@ private extension OpenVGDB {
 
 // MARK: - Database Queries
 public extension OpenVGDB {
+    /// Columns `searchDatabase(usingKey:value:)` may compare. The key is spliced
+    /// into the SQL (a column name can't be a bind parameter), so anything else
+    /// is rejected rather than run.
+    static let searchableKeys: Set<String> = [
+        "romHashMD5", "romHashCRC", "romHashSHA1", "romSerial", "romFileName",
+        "romExtensionlessFileName", "releaseTitleName", "romID", "releaseID"
+    ]
+
     func searchDatabase(usingKey key: String, value: String, systemID: SystemIdentifier? = nil) throws -> [ROMMetadata]? {
-        let properties = getStandardProperties()
-        let sanitizedValue = sanitizeForSQLLike(value)
-        let query: String
-
-        let systemID = systemID?.openVGDBID
-
-        if let systemID = systemID {
-            query = """
-                SELECT DISTINCT \(properties)
-                FROM ROMs rom
-                LEFT JOIN RELEASES release USING (romID)
-                WHERE \(key) = '\(sanitizedValue)'
-                AND systemID = \(systemID)
-                """
-        } else {
-            query = """
-                SELECT DISTINCT \(properties)
-                FROM ROMs rom
-                LEFT JOIN RELEASES release USING (romID)
-                WHERE \(key) = '\(sanitizedValue)'
-                """
+        guard Self.searchableKeys.contains(key) else {
+            throw OpenVGDBError.invalidSearchKey(key)
         }
-
-        return try executeQuery(query)
+        let properties = getStandardProperties()
+        // Bound, not spliced. This used to LIKE-escape the value and then compare
+        // it with `=`, so any value containing `_` or `%` could never match.
+        var query = """
+            SELECT DISTINCT \(properties)
+            FROM ROMs rom
+            LEFT JOIN RELEASES release USING (romID)
+            WHERE \(key) = ?
+            """
+        var parameters: [Any] = [value]
+        if let systemID = systemID?.openVGDBID {
+            query += "\nAND systemID = ?"
+            parameters.append(systemID)
+        }
+        return try executeQuery(query, parameters: parameters)
     }
 
     func searchDatabase(usingFilename filename: String, systemID: SystemIdentifier? = nil) throws -> [ROMMetadata]? {
@@ -349,12 +352,15 @@ public extension OpenVGDB {
     }
 
     func system(forRomMD5 md5: String, or filename: String? = nil) throws -> SystemIdentifier? {
-        var query = "SELECT DISTINCT systemID FROM ROMs WHERE romHashMD5 = '\(md5)'"
+        // Bound: a filename with an apostrophe used to break this query.
+        var query = "SELECT DISTINCT systemID FROM ROMs WHERE romHashMD5 = ?"
+        var parameters: [Any] = [md5]
         if let filename = filename {
-            query += " OR romFileName LIKE '\(filename)'"
+            query += " OR romFileName LIKE ? ESCAPE '\\'"
+            parameters.append(sanitizeForSQLLike(filename).replacingOccurrences(of: "''", with: "'"))
         }
 
-        let results = try db.execute(query: query)
+        let results = try db.execute(query: query, parameters: parameters)
         guard let match = results.first else { return nil }
 
         guard let openVGDBSystemID = (match["systemID"] as? NSNumber)?.intValue else {
@@ -391,8 +397,8 @@ private extension OpenVGDB {
             """
     }
 
-    func executeQuery(_ query: String) throws -> [ROMMetadata]? {
-        let results = try db.execute(query: query)
+    func executeQuery(_ query: String, parameters: [Any]? = nil) throws -> [ROMMetadata]? {
+        let results = try db.execute(query: query, parameters: parameters)
         guard let validResults = results as? [[String: NSObject]], !validResults.isEmpty else {
             return nil
         }
@@ -634,11 +640,11 @@ public extension OpenVGDB {
                 romID
             FROM ROMs rom
             LEFT JOIN RELEASES release USING (romID)
-            WHERE romHashMD5 = '\(md5.uppercased())' COLLATE NOCASE
+            WHERE romHashMD5 = ? COLLATE NOCASE
             LIMIT 1
         """
 
-        let results = try db.execute(query: query)
+        let results = try db.execute(query: query, parameters: [md5.uppercased()])
         guard let result = results.first else { return nil }
         return convertToROMMetadata(result)
     }
