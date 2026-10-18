@@ -13,6 +13,7 @@ import Foundation
 import PVSystems
 import PVLookupTypes
 import PVLookupTestSupport
+import PVSQLiteDatabase
 
 // MARK: - Platform Constants
 private extension LibretroDBTests {
@@ -145,6 +146,20 @@ struct LibretroDBTests {
 
         let wrongSystem = try await db.searchROM(bySerial: "HDR-0043", systemID: .PSX)
         #expect(wrongSystem == nil)
+    }
+
+    // The full libretrodb ships with no indexes; LibretroDBManager adds them to
+    // the extracted copy (ported from iFly 3a0f2b528, ~16x per lookup there).
+    @Test("Preparing the database indexes the lookup columns")
+    func preparingCreatesIndexes() async throws {
+        try await LibretroDBManager.shared.prepareDatabaseIfNeeded()
+        let path = await LibretroDBManager.shared.databasePath
+        let connection = try PVSQLiteDatabase(withURL: path)
+        let rows = try connection.execute(query: "SELECT name FROM sqlite_master WHERE type = 'index'", parameters: nil)
+        let names = Set(rows.compactMap { $0["name"] as? String })
+        for index in ["idx_roms_md5", "idx_roms_serial_id", "idx_games_serial_id", "idx_games_display_name"] {
+            #expect(names.contains(index), "missing \(index)")
+        }
     }
 
     // MARK: - MD5 Search Tests

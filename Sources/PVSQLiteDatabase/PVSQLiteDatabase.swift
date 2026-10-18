@@ -21,6 +21,8 @@ public struct PVSQLiteDatabase: @unchecked Sendable {
     public init(withURL url: URL) throws {
         self.url = url
         let connection = try SQLite.Connection(url.path, readonly: true)
+        // Wait out a writer (index creation) instead of failing with SQLITE_BUSY.
+        connection.busyTimeout = 30
         self.connection = connection
     }
 }

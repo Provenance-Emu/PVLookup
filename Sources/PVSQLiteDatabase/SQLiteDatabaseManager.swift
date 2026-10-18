@@ -1,6 +1,7 @@
 import Foundation
 import PVLookupLogging
 import ZIPFoundation
+import SQLite
 
 public enum SQLiteDatabaseError: Error {
     case databaseNotFound
@@ -41,6 +42,7 @@ public actor SQLiteDatabaseManager {
 
     private let origin: Origin
     private let databaseName: String
+    private let indexes: [String]
     private var isDatabasePrepared = false
 
     /// The source, resolved on every use so `LookupDatabases.configure` applies
@@ -54,15 +56,19 @@ public actor SQLiteDatabaseManager {
 
     /// A manager for one of PVLookup's databases, read from the source
     /// `LookupDatabases` gives for it.
-    public init(database: LookupDatabase) {
+    /// - Parameter indexes: `CREATE INDEX IF NOT EXISTS` statements applied to
+    ///   the extracted copy (never to a caller's `.file` database).
+    public init(database: LookupDatabase, indexes: [String] = []) {
         self.origin = .database(database)
         self.databaseName = database.fileName
+        self.indexes = indexes
     }
 
     /// A manager for `<compressedName>.zip` in `bundle`, extracting the entry `databaseName`.
     public init(bundle: Bundle, databaseName: String, compressedName: String? = nil) {
         self.origin = .fixed(.bundled(bundle, resource: compressedName ?? databaseName))
         self.databaseName = databaseName
+        self.indexes = []
     }
 
     /// Ensures the database is extracted and ready to use
@@ -96,6 +102,7 @@ public actor SQLiteDatabaseManager {
             // No archive to (re-)extract from; fall back to an already extracted copy if present.
             if fileManager.fileExists(atPath: databasePath.path) {
                 DLOG("SQLiteDatabaseManager: No bundled zip, using existing database")
+                applyIndexes(at: databasePath)
                 isDatabasePrepared = true
                 return
             }
@@ -111,6 +118,7 @@ public actor SQLiteDatabaseManager {
 
             if let storedFingerprint, storedFingerprint == fingerprint {
                 DLOG("SQLiteDatabaseManager: Database already exists and is up to date")
+                applyIndexes(at: databasePath)
                 isDatabasePrepared = true
                 return
             }
@@ -121,6 +129,7 @@ public actor SQLiteDatabaseManager {
                 // adopt them instead of rewriting them yet again.
                 DLOG("SQLiteDatabaseManager: Adopting existing database without re-extracting")
                 writeSourceMarker(fingerprint)
+                applyIndexes(at: databasePath)
                 isDatabasePrepared = true
                 return
             }
@@ -149,6 +158,8 @@ public actor SQLiteDatabaseManager {
 
         // Move extracted database to final location
         let extractedDB = tempDir.appendingPathComponent(databaseName)
+        // Index the copy before it's visible at databasePath.
+        applyIndexes(at: extractedDB)
         try fileManager.moveItem(at: extractedDB, to: databasePath)
         DLOG("SQLiteDatabaseManager: Moved database to final location")
 
@@ -156,6 +167,41 @@ public actor SQLiteDatabaseManager {
 
         isDatabasePrepared = true
         DLOG("SQLiteDatabaseManager: Database preparation complete")
+    }
+
+    /// Creates `indexes` (`CREATE INDEX IF NOT EXISTS …` statements) in the
+    /// database at `url` unless every one already exists. Runs inside
+    /// `prepareDatabaseIfNeeded`, before the database is reported ready, so no
+    /// lookup can run while an index is being built (building them on 87k rows
+    /// takes seconds and holds the write lock: concurrent reads failed with
+    /// "database is locked"). Never throws: lookups work without the indexes,
+    /// just slower.
+    private func applyIndexes(at url: URL) {
+        guard !indexes.isEmpty else { return }
+        do {
+            let connection = try Connection(url.path)
+            connection.busyTimeout = 30
+            let existing = Set(try connection.prepare("SELECT name FROM sqlite_master WHERE type = 'index'")
+                .compactMap { $0[0] as? String })
+            let missing = indexes.filter { statement in
+                guard let name = Self.indexName(in: statement) else { return true }
+                return !existing.contains(name)
+            }
+            guard !missing.isEmpty else { return }
+            DLOG("SQLiteDatabaseManager: creating \(missing.count) index(es) in \(databaseName)")
+            for statement in missing {
+                try connection.execute(statement)
+            }
+        } catch {
+            WLOG("SQLiteDatabaseManager: could not index \(databaseName): \(error)")
+        }
+    }
+
+    /// The index name in a `CREATE INDEX [IF NOT EXISTS] <name> ON …` statement.
+    static func indexName(in statement: String) -> String? {
+        let words = statement.split(whereSeparator: \.isWhitespace).map(String.init)
+        guard let on = words.firstIndex(where: { $0.uppercased() == "ON" }), on > 0 else { return nil }
+        return words[on - 1]
     }
 
     /// Content fingerprint (CRC32 + uncompressed size) of the database entry in the bundled zip.
