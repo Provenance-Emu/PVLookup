@@ -895,3 +895,23 @@ struct PVLookupSystemTests {
     }
 
 }
+
+
+@Suite("Title metadata search")
+struct PVLookupTitleSearchTests {
+    init() { TestDatabases.configure() }
+
+    @Test("Finds a Dreamcast game by title and filters by system")
+    func titleSearch() async throws {
+        let results = try #require(try await PVLookup.shared.searchROMMetadata(byGameName: "Sonic Adventure", systemID: .Dreamcast))
+        #expect(results.contains { $0.gameTitle.localizedCaseInsensitiveContains("Sonic Adventure") })
+        #expect(results.allSatisfy { $0.systemID == .Dreamcast || $0.systemID == .Unknown })
+        let keys = results.map { "\($0.systemID.rawValue)|\($0.gameTitle.lowercased())" }
+        #expect(Set(keys).count == keys.count, "results are de-duplicated")
+    }
+
+    @Test("Unknown title returns nil")
+    func unknownTitle() async throws {
+        #expect(try await PVLookup.shared.searchROMMetadata(byGameName: "zzqx no such game 9137", systemID: nil) == nil)
+    }
+}

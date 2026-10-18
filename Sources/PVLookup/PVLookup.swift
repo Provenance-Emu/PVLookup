@@ -1257,6 +1257,49 @@ public actor PVLookup: ROMMetadataProvider, ArtworkLookupOnlineService, ArtworkL
         }
     }
 
+    /// ROM metadata for a game title, from every enabled database.
+    ///
+    /// libretrodb matches `games.display_name`; OpenVGDB and TheGamesDB use
+    /// their title search. With a `systemID`, results for other systems are
+    /// dropped (results with an unknown system are kept). Duplicates (same
+    /// system and title) are merged, first source wins. Ported from iFly
+    /// 949fe71e0, where it backs the title cascade for games with no MD5 or
+    /// serial match.
+    public func searchROMMetadata(byGameName name: String, systemID: SystemIdentifier?) async throws -> [ROMMetadata]? {
+        let searchStartTime = Date()
+        ILOG("PVLookup: ROM metadata search for title: \(name), systemID: \(String(describing: systemID))")
+
+        let libretro = databases.contains(.libretro) ? await getLibretroDB() : nil
+        let openVGDB = databases.contains(.openVGDB) ? await getOpenVGDB() : nil
+        let theGamesDB = databases.contains(.theGamesDB) ? await getTheGamesDB() : nil
+
+        let results = await withTaskGroup(of: (Int, [ROMMetadata]).self) { group in
+            group.addTask {
+                (0, (try? await libretro?.searchGamesForArtwork(name: name, systemID: systemID)) ?? [])
+            }
+            group.addTask {
+                (1, ((try? await openVGDB?.searchDatabase(usingFilename: name, systemID: systemID)) ?? nil) ?? [])
+            }
+            group.addTask {
+                (2, (try? theGamesDB?.searchGames(name: name, platformId: systemID?.theGamesDBID)) ?? [])
+            }
+            var bySource: [Int: [ROMMetadata]] = [:]
+            for await (source, roms) in group { bySource[source] = roms }
+            // libretrodb, then OpenVGDB, then TheGamesDB, whatever order they finished in.
+            return (0...2).flatMap { bySource[$0] ?? [] }
+        }
+
+        var seen = Set<String>()
+        let merged = results.filter { rom in
+            if let systemID, rom.systemID != systemID, rom.systemID != .Unknown { return false }
+            return seen.insert("\(rom.systemID.rawValue)|\(rom.gameTitle.lowercased())").inserted
+        }
+
+        let duration = String(format: "%.3f", Date().timeIntervalSince(searchStartTime))
+        ILOG("PVLookup: \(merged.count) ROM metadata result(s) for title \(name) in \(duration)s")
+        return merged.isEmpty ? nil : merged
+    }
+
 #if canImport(ShiraGame)
     // Helper to safely access ShiraGame
     private func getShiraGame() async -> ShiraGame? {

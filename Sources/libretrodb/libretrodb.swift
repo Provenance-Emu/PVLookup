@@ -214,7 +214,7 @@ public final class libretrodb: ROMMetadataProvider, @unchecked Sendable {
 
     /// Constants for artwork URL construction
     internal enum ArtworkConstants {
-        static let baseURL = "http://thumbnails.libretro.com"
+        static let baseURL = "https://thumbnails.libretro.com"
         static let boxartPath = "Named_Boxarts"
         static let titlesPath = "Named_Titles"
         static let snapshotPath = "Named_Snaps"
@@ -1081,7 +1081,7 @@ extension libretrodb {
     ///   - name: Game name to search for
     ///   - systemID: Optional system to filter by
     /// - Returns: Array of ROM metadata optimized for artwork lookup
-    internal func searchGamesForArtwork(name: String, systemID: SystemIdentifier? = nil) async throws -> [ROMMetadata] {
+    public func searchGamesForArtwork(name: String, systemID: SystemIdentifier? = nil) async throws -> [ROMMetadata] {
         DLOG("\nLibretroDB artwork search:")
         DLOG("- Name: \(name)")
         DLOG("- SystemID: \(String(describing: systemID))")
