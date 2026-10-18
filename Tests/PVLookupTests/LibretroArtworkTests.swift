@@ -12,6 +12,7 @@ import Foundation
 @testable import ROMMetadataProvider
 import PVSystems
 import PVLookupTypes
+import PVLookupTestSupport
 
 struct LibretroArtworkTests {
     let db: libretrodb
@@ -37,6 +38,7 @@ struct LibretroArtworkTests {
     )
 
     init() async throws {
+        TestDatabases.configure()
         print("Starting LibretroDB test initialization...")
         self.db = try await libretrodb()
         print("LibretroDB initialization complete")

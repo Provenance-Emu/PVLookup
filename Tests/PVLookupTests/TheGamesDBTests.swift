@@ -5,6 +5,7 @@ import Foundation
 @testable import PVLookup
 @testable import TheGamesDB
 @testable import PVLookupTypes
+import PVLookupTestSupport
 
 struct TheGamesDBTests {
     let db: TheGamesDB
@@ -29,6 +30,7 @@ struct TheGamesDBTests {
     )
 
     init() async throws {
+        TestDatabases.configure()
         print("Starting TheGamesDB test initialization...")
         self.db = try await TheGamesDB()
         print("TheGamesDB initialization complete")

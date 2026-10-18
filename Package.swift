@@ -161,17 +161,23 @@ let package = Package(
 
         // MARK: - Tests
 
+        .target(
+            name: "PVLookupTestSupport",
+            dependencies: ["PVSQLiteDatabase"],
+            path: "Sources/PVLookupTestSupport"
+        ),
+
         .testTarget(
             name: "PVLookupTests",
-            dependencies: ["PVLookup", "PVLookupLogging", "PVSystems", "PVSQLiteDatabase"]
+            dependencies: ["PVLookup", "PVLookupLogging", "PVSystems", "PVSQLiteDatabase", "PVLookupTestSupport"]
         ),
         .testTarget(
             name: "TheGamesDBTests",
-            dependencies: ["TheGamesDB", "PVLookup", "PVLookupLogging"]
+            dependencies: ["TheGamesDB", "PVLookup", "PVLookupLogging", "PVLookupTestSupport"]
         ),
         .testTarget(
             name: "LibretroCheatDBTests",
-            dependencies: ["LibretroCheatDB", "PVLookupLogging"]
+            dependencies: ["LibretroCheatDB", "PVLookupLogging", "PVLookupTestSupport"]
         ),
         .testTarget(
             name: "PVSQLiteDatabaseTests",

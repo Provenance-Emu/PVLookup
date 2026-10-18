@@ -8,8 +8,11 @@ import Foundation
 @testable import PVLookup
 import PVLookupTypes
 import PVSystems
+import PVLookupTestSupport
 
 struct ArtworkDownloadHealthTests {
+    init() { TestDatabases.configure() }
+
     private let png = Data([0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, 0x00])
     private let jpeg = Data([0xFF, 0xD8, 0xFF, 0xE0, 0x00, 0x10, 0x4A, 0x46])
     private let html = Data("<!DOCTYPE html><html><title>Just a moment...</title>".utf8)
@@ -149,6 +152,8 @@ struct ArtworkDownloadHealthTests {
 
 /// Hits the real thumbnails.libretro.com (like the other PVLookup artwork tests).
 struct ArtworkFallbackLookupTests {
+    init() { TestDatabases.configure() }
+
     @Test("A dead gamefaqs cover falls back to the libretro thumbnail first")
     func libretroPreferred() async {
         let dead = "https://gamefaqs.gamespot.com/a/box/2/8/3/22283_front.jpg"

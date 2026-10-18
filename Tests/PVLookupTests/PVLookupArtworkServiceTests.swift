@@ -6,11 +6,13 @@ import Foundation
 @testable import libretrodb
 @testable import TheGamesDB
 import PVSystems
+import PVLookupTestSupport
 
 struct PVLookupArtworkServiceTests {
     let lookup: PVLookup
 
     init() async {
+        TestDatabases.configure()
         self.lookup = .shared
     }
 

@@ -1,8 +1,11 @@
 import Testing
 import Foundation
 @testable import ShiraGame
+import PVLookupTestSupport
 
 struct ShiraGameManagerTests {
+    init() { TestDatabases.configure() }
+
     let manager = ShiraGameManager.shared
 
     @Test

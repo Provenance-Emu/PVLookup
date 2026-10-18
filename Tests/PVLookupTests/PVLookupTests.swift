@@ -15,6 +15,7 @@ import Testing
 @testable import PVSQLiteDatabase
 import Foundation
 import PVSystems
+import PVLookupTestSupport
 
 struct PVLookupTests {
     let lookup: PVLookup
@@ -51,6 +52,7 @@ struct PVLookupTests {
     )
 
     init() async throws {
+        TestDatabases.configure()
         // Initialize PVLookup first
         self.lookup = .shared
         // Wait for databases to initialize
@@ -472,6 +474,7 @@ struct PVLookupArtworkTests {
     let theGamesDB: TheGamesDB
 
     init() async throws {
+        TestDatabases.configure()
         // Initialize PVLookup first
         self.lookup = .shared
         // Wait for databases to initialize
@@ -756,6 +759,7 @@ struct PVLookupSystemTests {
     let lookup: PVLookup
 
     init() async throws {
+        TestDatabases.configure()
         self.lookup = .shared
         // Ensure databases are initialized
         try await lookup.ensureDatabasesInitialized()

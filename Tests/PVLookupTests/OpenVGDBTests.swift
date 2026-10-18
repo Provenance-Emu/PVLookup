@@ -10,11 +10,13 @@ import Testing
 @testable import PVLookup
 @testable import OpenVGDB
 import PVSystems
+import PVLookupTestSupport
 
 struct OpenVGDBTests {
     let db: OpenVGDB
 
     init() async throws {
+        TestDatabases.configure()
         self.db = try await OpenVGDB()
     }
 

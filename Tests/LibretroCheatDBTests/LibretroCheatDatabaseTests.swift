@@ -7,10 +7,13 @@
 import Testing
 import Foundation
 @testable import LibretroCheatDB
+import PVLookupTestSupport
 
 // MARK: - Database Connection & Extraction
 
 struct LibretroCheatDatabaseConnectionTests {
+    init() { TestDatabases.configure() }
+
 
     @Test("Database connects and extracts successfully")
     func connectAndExtract() async throws {
@@ -35,6 +38,8 @@ struct LibretroCheatDatabaseConnectionTests {
 // MARK: - Search by Title
 
 struct LibretroCheatDatabaseSearchTests {
+    init() { TestDatabases.configure() }
+
 
     @Test("Search GoldenEye 007 returns N64 cheats")
     func searchGoldenEye() async throws {
@@ -112,6 +117,8 @@ struct LibretroCheatDatabaseSearchTests {
 // MARK: - MD5 Lookup
 
 struct LibretroCheatDatabaseMD5Tests {
+    init() { TestDatabases.configure() }
+
 
     @Test("MD5 lookup with nil md5 falls back to title search")
     func nilMD5FallsBackToTitle() async throws {
@@ -208,6 +215,8 @@ struct LibretroCheatDatabaseMD5Tests {
 // MARK: - System Name Filtering
 
 struct LibretroCheatDatabaseSystemFilterTests {
+    init() { TestDatabases.configure() }
+
 
     @Test("System filter restricts results to that system")
     func systemFilterRestricts() async throws {
@@ -281,6 +290,8 @@ struct LibretroCheatDatabaseSystemFilterTests {
 // MARK: - Limit Parameter
 
 struct LibretroCheatDatabaseLimitTests {
+    init() { TestDatabases.configure() }
+
 
     @Test("Limit parameter caps results")
     func limitCapsResults() async throws {
@@ -313,6 +324,8 @@ struct LibretroCheatDatabaseLimitTests {
 // MARK: - Entry Model Validation
 
 struct LibretroCheatEntryTests {
+    init() { TestDatabases.configure() }
+
 
     @Test("Entry fields are populated correctly")
     func entryFieldsPopulated() async throws {
@@ -397,6 +410,8 @@ struct LibretroCheatEntryTests {
 // MARK: - Region Tag Handling
 
 struct LibretroCheatDatabaseRegionTagTests {
+    init() { TestDatabases.configure() }
+
 
     @Test("Title with region tag matches same as clean title")
     func regionTagMatchesSameAsCleanTitle() async throws {
@@ -421,6 +436,8 @@ struct LibretroCheatDatabaseRegionTagTests {
 // MARK: - Special Characters in Search
 
 struct LibretroCheatDatabaseSpecialCharTests {
+    init() { TestDatabases.configure() }
+
 
     @Test("SQL wildcards in title are escaped")
     func sqlWildcardsEscaped() async throws {
@@ -454,6 +471,8 @@ struct LibretroCheatDatabaseSpecialCharTests {
 // MARK: - Multi-System Coverage
 
 struct LibretroCheatDatabaseCoverageTests {
+    init() { TestDatabases.configure() }
+
 
     @Test("Database contains multiple systems",
           .tags(.slow))

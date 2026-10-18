@@ -10,6 +10,7 @@ import PVSystems
 import Foundation
 @testable import ShiraGame
 @testable import PVLookupTypes
+import PVLookupTestSupport
 
 struct ShiraGameTests {
     let db: ShiraGame
@@ -52,6 +53,7 @@ struct ShiraGameTests {
     )
 
     init() async throws {
+        TestDatabases.configure()
         print("Starting ShiraGame test initialization...")
         self.db = try await ShiraGame()
         print("ShiraGame initialization complete")

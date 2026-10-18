@@ -12,6 +12,7 @@ import Foundation
 @testable import ROMMetadataProvider
 import PVSystems
 import PVLookupTypes
+import PVLookupTestSupport
 
 // MARK: - Platform Constants
 private extension LibretroDBTests {
@@ -52,6 +53,7 @@ struct LibretroDBTests {
     let db: libretrodb
 
     init() async throws {
+        TestDatabases.configure()
         self.db = try await libretrodb()
     }
 
