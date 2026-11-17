@@ -65,6 +65,17 @@ in Caches by an earlier run.
    (`libretrodb.sqlite`, …). The lean Dreamcast-family libretrodb comes from
    `Tools/libretrodb/generate_libretrodb_if_needed.sh` (output in `.build-libretrodb/out/`).
    The cheat database comes from Provenance's `Scripts/generate_cheatdb_if_needed.sh`.
+   The full `libretrodb.sqlite` is never rebuilt: a rebuild would renumber its platforms, and
+   PVSystems maps each system to a platform id. A platform libretro-database gained later is
+   appended to the last release's file with `Tools/libretrodb/add_platform.py`, which takes the
+   next free id and checks that every existing row is unchanged. Then give the system that id
+   in PVSystems. Jaguar CD (platform 120) was added this way:
+
+   ```sh
+   Tools/libretrodb/add_platform.py --input old/libretrodb.sqlite --output new/libretrodb.sqlite \
+       --dat "Atari - Jaguar CD.dat" --platform "Jaguar CD" --manufacturer Atari --platform-id 120
+   (cd new && zip -X -9 libretrodb.sqlite.zip libretrodb.sqlite)
+   ```
 2. Write `databases.json` (name, database, entry, size, uncompressedSize, sha256, source).
 3. `gh release create databases-YYYY-MM-DD <zips> databases.json`.
 4. Update `databases.lock.json` here and in each app.
