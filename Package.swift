@@ -31,7 +31,10 @@ let package = Package(
         .library(name: "libretrodb", targets: ["libretrodb"])
     ],
     dependencies: [
-        .package(url: "https://github.com/Provenance-Emu/PVSystems.git", .upToNextMajor(from: "1.0.0")),
+        // 1.0.1 maps Jaguar CD to libretrodb platform 120, which the pinned
+        // databases release (databases.lock.json) added. Older releases turn a
+        // platform 120 match into `.Unknown`.
+        .package(url: "https://github.com/Provenance-Emu/PVSystems.git", .upToNextMajor(from: "1.0.1")),
         .package(url: "https://github.com/apple/swift-crypto.git", from: "3.0.0"),
         .package(url: "https://github.com/stephencelis/SQLite.swift.git", .upToNextMajor(from: "0.15.3")),
         .package(url: "https://github.com/JoeMatt/Lighter.git", from: "1.0.0"),

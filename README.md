@@ -69,7 +69,8 @@ in Caches by an earlier run.
    PVSystems maps each system to a platform id. A platform libretro-database gained later is
    appended to the last release's file with `Tools/libretrodb/add_platform.py`, which takes the
    next free id and checks that every existing row is unchanged. Then give the system that id
-   in PVSystems. Jaguar CD (platform 120) was added this way:
+   in PVSystems, and raise the minimum PVSystems version in `Package.swift` to the release that
+   has it. Jaguar CD (platform 120) was added this way:
 
    ```sh
    Tools/libretrodb/add_platform.py --input old/libretrodb.sqlite --output new/libretrodb.sqlite \
