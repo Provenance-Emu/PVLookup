@@ -18,7 +18,7 @@ import PackageDescription
 // `main` always builds from source. The release workflow fills this in on the tagged
 // commit only, so it stays `nil` on every branch.
 // Set PV_BUILD_FROM_SOURCE=1 to build a tagged version from source instead.
-let binaryRelease: (version: String, checksums: [String: String])? = nil
+let binaryRelease: (version: String, checksums: [String: String])? = ("1.1.0", ["LibretroCheatDB": "2b227166aaca054a538d35e65095bac390e807f4fcff0ebcf74ccd87653907ff", "OpenVGDB": "9eda7a9d96ff6ae5f7d6e63e9bff80099090f252158c7482e2c6ea930416c254", "PVLookup": "2b706a9fd6267426c4127360ec8c0e472c60955dfc98820890f90d65d8a176a0", "PVLookupLogging": "f03c99643af8c41af313210a9c602cf2f83e8dbbde8e485842b3ade6add7359c", "PVLookupTypes": "a822a6887918a74a262b822b68ae6e6738e1d81d801500584491c7c4f400ad38", "PVSQLiteDatabase": "126548c2628f9702b601ebd488f252daf78b3582311c160409fbb262d3382b06", "ROMMetadataProvider": "32e94b8e23413e64e21434e86a1e168583813561e75dd1dfb983c91692e41922", "ShiraGame": "5ab18b84442ee79acefba7a0c1ad7304198dbf736af0ca89886424ba7603591d", "TheGamesDB": "298031dad499aee37750a2cb74be0d9f8f2a71565a5e5484700918faf389dbd9", "libretrodb": "e47d5e4ccfb6a1d5ef2a606afaded487e7c2dd8d1c15a360698a33f9e0dbdc64"])
 
 let environment = ProcessInfo.processInfo.environment
 let buildFromSource = binaryRelease == nil || environment["PV_BUILD_FROM_SOURCE"] != nil
