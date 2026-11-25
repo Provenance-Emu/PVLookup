@@ -1,8 +1,8 @@
 import Foundation
-import PVLookupLogging
-import PVSQLiteDatabase
+@_spi(PVLookup) import PVLookupLogging
+@_spi(PVLookup) import PVSQLiteDatabase
 
-public enum ShiraGameError: Error {
+@frozen public enum ShiraGameError: Error {
     case databaseNotFound
     case extractionFailed
     case invalidCompressedFile

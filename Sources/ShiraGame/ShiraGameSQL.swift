@@ -1,8 +1,8 @@
 // Autocreated by sqlite2swift at 2024-10-20T18:24:17Z
 
-import SQLite3
+internal import SQLite3
 import Foundation
-import Lighter
+internal import Lighter
 
 /**
  * A structure representing a SQLite database.
@@ -39,7 +39,7 @@ import Lighter
  * ```
  */
 @dynamicMemberLookup
-public struct ShiragameSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
+struct ShiragameSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
   
   /**
    * Mappings of table/view Swift types to their "reference name".
@@ -49,19 +49,19 @@ public struct ShiragameSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
    * "reference names" (e.g. ``games``) to the
    * "record type" of the table (e.g. ``Game``.self).
    */
-  public struct RecordTypes : Swift.Sendable {
+  struct RecordTypes : Swift.Sendable {
     
     /// Returns the Game type information (SQL: `game`).
-    public let games = Game.self
+    let games = Game.self
     
     /// Returns the Rom type information (SQL: `rom`).
-    public let roms = Rom.self
+    let roms = Rom.self
     
     /// Returns the Serial type information (SQL: `serial`).
-    public let serials = Serial.self
+    let serials = Serial.self
     
     /// Returns the Shiragame type information (SQL: `shiragame`).
-    public let shiragames = Shiragame.self
+    let shiragames = Shiragame.self
   }
   
   /**
@@ -109,52 +109,52 @@ public struct ShiragameSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
    *     )
    * ```
    */
-    public struct Game : Identifiable, SQLKeyedTableRecord, Codable, Sendable, Equatable, Hashable {
+    struct Game : Identifiable, SQLKeyedTableRecord, Codable, Sendable, Equatable, Hashable {
     
     /// Static SQL type information for the ``Game`` record.
-    public static let schema = Schema()
+    static let schema = Schema()
     
     /// Primary key `game_id` (`INTEGER`), optional (default: `nil`).
-    public var id : Int?
+    var id : Int?
     
     /// Column `platform_id` (`TEXT`), required.
-    public var platformId : String
+    var platformId : String
     
     /// Column `entry_name` (`TEXT`), required.
-    public var entryName : String
+    var entryName : String
     
     /// Column `entry_title` (`TEXT`), optional (default: `nil`).
-    public var entryTitle : String?
+    var entryTitle : String?
     
     /// Column `release_title` (`TEXT`), optional (default: `nil`).
-    public var releaseTitle : String?
+    var releaseTitle : String?
     
     /// Column `region` (`TEXT`), required.
-    public var region : String
+    var region : String
     
     /// Column `part_number` (`INTEGER`), optional (default: `nil`).
-    public var partNumber : Int?
+    var partNumber : Int?
     
     /// Column `is_unlicensed` (`BOOLEAN`), required.
-    public var isUnlicensed : Bool
+    var isUnlicensed : Bool
     
     /// Column `is_demo` (`BOOLEAN`), required.
-    public var isDemo : Bool
+    var isDemo : Bool
     
     /// Column `is_system` (`BOOLEAN`), required.
-    public var isSystem : Bool
+    var isSystem : Bool
     
     /// Column `version` (`TEXT`), optional (default: `nil`).
-    public var version : String?
+    var version : String?
     
     /// Column `status` (`TEXT`), optional (default: `nil`).
-    public var status : String?
+    var status : String?
     
     /// Column `naming_convention` (`TEXT`), optional (default: `nil`).
-    public var namingConvention : String?
+    var namingConvention : String?
     
     /// Column `source` (`TEXT`), required.
-    public var source : String
+    var source : String
     
     /**
      * Initialize a new ``Game`` record.
@@ -175,8 +175,7 @@ public struct ShiragameSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
      *   - namingConvention: Column `naming_convention` (`TEXT`), optional (default: `nil`).
      *   - source: Column `source` (`TEXT`), required.
      */
-    @inlinable
-    public init(
+    init(
       id: Int? = nil,
       platformId: String,
       entryName: String,
@@ -249,31 +248,31 @@ public struct ShiragameSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
    *     )
    * ```
    */
-  public struct Rom : SQLTableRecord, Codable, Sendable {
+  struct Rom : SQLTableRecord, Codable, Sendable {
     
     /// Static SQL type information for the ``Rom`` record.
-    public static let schema = Schema()
+    static let schema = Schema()
     
     /// Column `file_name` (`TEXT`), required.
-    public var fileName : String
+    var fileName : String
     
     /// Column `mimetype` (`TEXT`), optional (default: `nil`).
-    public var mimetype : String?
+    var mimetype : String?
     
     /// Column `md5` (`TEXT`), optional (default: `nil`).
-    public var md5 : String?
+    var md5 : String?
     
     /// Column `crc` (`TEXT`), optional (default: `nil`).
-    public var crc : String?
+    var crc : String?
     
     /// Column `sha1` (`TEXT`), optional (default: `nil`).
-    public var sha1 : String?
+    var sha1 : String?
     
     /// Column `size` (`INTEGER`), required.
-    public var size : Int
+    var size : Int
     
     /// Column `game_id` (`INTEGER`), required.
-    public var gameId : Int
+    var gameId : Int
     
     /**
      * Initialize a new ``Rom`` record.
@@ -287,8 +286,7 @@ public struct ShiragameSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
      *   - size: Column `size` (`INTEGER`), required.
      *   - gameId: Column `game_id` (`INTEGER`), required.
      */
-    @inlinable
-    public init(
+    init(
       fileName: String,
       mimetype: String? = nil,
       md5: String? = nil,
@@ -343,19 +341,19 @@ public struct ShiragameSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
    *     )
    * ```
    */
-  public struct Serial : SQLTableRecord, Codable, Sendable {
+  struct Serial : SQLTableRecord, Codable, Sendable {
     
     /// Static SQL type information for the ``Serial`` record.
-    public static let schema = Schema()
+    static let schema = Schema()
     
     /// Column `serial` (`TEXT`), required.
-    public var serial : String
+    var serial : String
     
     /// Column `normalized` (`TEXT`), required.
-    public var normalized : String
+    var normalized : String
     
     /// Column `game_id` (`INTEGER`), required.
-    public var gameId : Int
+    var gameId : Int
     
     /**
      * Initialize a new ``Serial`` record.
@@ -365,8 +363,7 @@ public struct ShiragameSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
      *   - normalized: Column `normalized` (`TEXT`), required.
      *   - gameId: Column `game_id` (`INTEGER`), required.
      */
-    @inlinable
-    public init(serial: String, normalized: String, gameId: Int)
+    init(serial: String, normalized: String, gameId: Int)
     {
       self.serial = serial
       self.normalized = normalized
@@ -411,28 +408,28 @@ public struct ShiragameSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
    *     )
    * ```
    */
-  public struct Shiragame : SQLTableRecord, Codable, Sendable {
+  struct Shiragame : SQLTableRecord, Codable, Sendable {
     
     /// Static SQL type information for the ``Shiragame`` record.
-    public static let schema = Schema()
+    static let schema = Schema()
     
     /// Column `shiragame` (`TEXT`), optional (default: `nil`).
-    public var shiragame : String?
+    var shiragame : String?
     
     /// Column `schema_version` (`TEXT`), optional (default: `nil`).
-    public var schemaVersion : String?
+    var schemaVersion : String?
     
     /// Column `stone_version` (`TEXT`), optional (default: `nil`).
-    public var stoneVersion : String?
+    var stoneVersion : String?
     
     /// Column `generated` (`TEXT`), optional (default: `nil`).
-    public var generated : String?
+    var generated : String?
     
     /// Column `release` (`TEXT`), optional (default: `nil`).
-    public var release : String?
+    var release : String?
     
     /// Column `aggregator` (`TEXT`), optional (default: `nil`).
-    public var aggregator : String?
+    var aggregator : String?
     
     /**
      * Initialize a new ``Shiragame`` record.
@@ -445,8 +442,7 @@ public struct ShiragameSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
      *   - release: Column `release` (`TEXT`), optional (default: `nil`).
      *   - aggregator: Column `aggregator` (`TEXT`), optional (default: `nil`).
      */
-    @inlinable
-    public init(
+    init(
       shiragame: String? = nil,
       schemaVersion: String? = nil,
       stoneVersion: String? = nil,
@@ -465,20 +461,20 @@ public struct ShiragameSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
   }
   
   /// Property based access to the ``RecordTypes-swift.struct``.
-  public static let recordTypes = RecordTypes()
+  static let recordTypes = RecordTypes()
   
   #if swift(>=5.7)
   /// All RecordTypes defined in the database.
-  public static let _allRecordTypes : [ any SQLRecord.Type ] = [ Game.self, Rom.self, Serial.self, Shiragame.self ]
+  static let _allRecordTypes : [ any SQLRecord.Type ] = [ Game.self, Rom.self, Serial.self, Shiragame.self ]
   #endif // swift(>=5.7)
   
   /// User version of the database (`PRAGMA user_version`).
-  public static let userVersion = 0
+  static let userVersion = 0
   
   /// Whether `INSERT … RETURNING` should be used (requires SQLite 3.35.0+).
-  public static let useInsertReturning = sqlite3_libversion_number() >= 3035000
+  static let useInsertReturning = sqlite3_libversion_number() >= 3035000
   
-  public static func withOptCString<R>(
+  static func withOptCString<R>(
     _ s: String?,
     _ body: ( UnsafePointer<CChar>? ) throws -> R
   ) rethrows -> R
@@ -488,7 +484,7 @@ public struct ShiragameSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
   }
   
   /// The `connectionHandler` is used to open SQLite database connections.
-  public var connectionHandler : SQLConnectionHandler
+  var connectionHandler : SQLConnectionHandler
   
   /**
    * Initialize ``ShiragameSchema``, read-only, with a `URL`.
@@ -509,8 +505,7 @@ public struct ShiragameSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
    * - Parameters:
    *   - url: A `URL` pointing to the database to be used.
    */
-  @inlinable
-  public init(url: URL)
+  init(url: URL)
   {
     self.connectionHandler = .simplePool(url: url, readOnly: true)
   }
@@ -535,8 +530,7 @@ public struct ShiragameSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
    *   - url: A `URL` pointing to the database to be used.
    *   - readOnly: For protocol conformance, only allowed value: `true`.
    */
-  @inlinable
-  public init(url: URL, readOnly: Bool = true)
+  init(url: URL, readOnly: Bool = true)
   {
     self.init(url: url)
   }
@@ -562,14 +556,13 @@ public struct ShiragameSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
    * - Parameters:
    *   - connectionHandler: The `SQLConnectionHandler` to use w/ the database.
    */
-  @inlinable
-  public init(connectionHandler: SQLConnectionHandler)
+  init(connectionHandler: SQLConnectionHandler)
   {
     self.connectionHandler = connectionHandler
   }
 }
 
-public extension ShiragameSchema.Game {
+extension ShiragameSchema.Game {
   
   /**
    * Static type information for the ``Game`` record (`game` SQL table).
@@ -580,55 +573,55 @@ public extension ShiragameSchema.Game {
    */
   struct Schema : SQLKeyedTableSchema, SQLSwiftMatchableSchema {
     
-    public typealias PropertyIndices = ( idx_id: Int32, idx_platformId: Int32, idx_entryName: Int32, idx_entryTitle: Int32, idx_releaseTitle: Int32, idx_region: Int32, idx_partNumber: Int32, idx_isUnlicensed: Int32, idx_isDemo: Int32, idx_isSystem: Int32, idx_version: Int32, idx_status: Int32, idx_namingConvention: Int32, idx_source: Int32 )
-    public typealias RecordType = ShiragameSchema.Game
-    public typealias MatchClosureType = ( ShiragameSchema.Game ) -> Bool
+    typealias PropertyIndices = ( idx_id: Int32, idx_platformId: Int32, idx_entryName: Int32, idx_entryTitle: Int32, idx_releaseTitle: Int32, idx_region: Int32, idx_partNumber: Int32, idx_isUnlicensed: Int32, idx_isDemo: Int32, idx_isSystem: Int32, idx_version: Int32, idx_status: Int32, idx_namingConvention: Int32, idx_source: Int32 )
+    typealias RecordType = ShiragameSchema.Game
+    typealias MatchClosureType = ( ShiragameSchema.Game ) -> Bool
     
     /// The SQL table name associated with the ``Game`` record.
-    public static let externalName = "game"
+    static let externalName = "game"
     
     /// The number of columns the `game` table has.
-    public static let columnCount : Int32 = 14
+    static let columnCount : Int32 = 14
     
     /// Information on the records primary key (``Game/id``).
-    public static let primaryKeyColumn = MappedColumn<ShiragameSchema.Game, Int?>(
+    static let primaryKeyColumn = MappedColumn<ShiragameSchema.Game, Int?>(
       externalName: "game_id",
       defaultValue: nil,
       keyPath: \ShiragameSchema.Game.id
     )
     
     /// SQL to `SELECT` all columns of the `game` table.
-    public static let select = #"SELECT "game_id", "platform_id", "entry_name", "entry_title", "release_title", "region", "part_number", "is_unlicensed", "is_demo", "is_system", "version", "status", "naming_convention", "source" FROM "game""#
+    static let select = #"SELECT "game_id", "platform_id", "entry_name", "entry_title", "release_title", "region", "part_number", "is_unlicensed", "is_demo", "is_system", "version", "status", "naming_convention", "source" FROM "game""#
     
     /// SQL fragment representing all columns.
-    public static let selectColumns = #""game_id", "platform_id", "entry_name", "entry_title", "release_title", "region", "part_number", "is_unlicensed", "is_demo", "is_system", "version", "status", "naming_convention", "source""#
+    static let selectColumns = #""game_id", "platform_id", "entry_name", "entry_title", "release_title", "region", "part_number", "is_unlicensed", "is_demo", "is_system", "version", "status", "naming_convention", "source""#
     
     /// Index positions of the properties in ``selectColumns``.
-    public static let selectColumnIndices : PropertyIndices = ( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 )
+    static let selectColumnIndices : PropertyIndices = ( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 )
     
     /// SQL to `SELECT` all columns of the `game` table using a Swift filter.
-    public static let matchSelect = #"SELECT "game_id", "platform_id", "entry_name", "entry_title", "release_title", "region", "part_number", "is_unlicensed", "is_demo", "is_system", "version", "status", "naming_convention", "source" FROM "game" WHERE games_swift_match("game_id", "platform_id", "entry_name", "entry_title", "release_title", "region", "part_number", "is_unlicensed", "is_demo", "is_system", "version", "status", "naming_convention", "source") != 0"#
+    static let matchSelect = #"SELECT "game_id", "platform_id", "entry_name", "entry_title", "release_title", "region", "part_number", "is_unlicensed", "is_demo", "is_system", "version", "status", "naming_convention", "source" FROM "game" WHERE games_swift_match("game_id", "platform_id", "entry_name", "entry_title", "release_title", "region", "part_number", "is_unlicensed", "is_demo", "is_system", "version", "status", "naming_convention", "source") != 0"#
     
     /// *Note*: Readonly database, do not use.
-    public static let update = ""
+    static let update = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let updateParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 )
+    static let updateParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 )
     
     /// *Note*: Readonly database, do not use.
-    public static let insert = ""
+    static let insert = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let insertReturning = ""
+    static let insertReturning = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let insertParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 )
+    static let insertParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 )
     
     /// *Note*: Readonly database, do not use.
-    public static let delete = ""
+    static let delete = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let deleteParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 )
+    static let deleteParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 )
     
     /**
      * Lookup property indices by column name in a statement handle.
@@ -645,8 +638,7 @@ public extension ShiragameSchema.Game {
      *   - statement: A raw SQLite3 prepared statement handle.
      * - Returns: The positions of the properties in the prepared statement.
      */
-    @inlinable
-    public static func lookupColumnIndices(`in` statement: OpaquePointer!)
+    static func lookupColumnIndices(`in` statement: OpaquePointer!)
       -> PropertyIndices
     {
       var indices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 )
@@ -710,9 +702,8 @@ public extension ShiragameSchema.Game {
      *   - matcher: A pointer to the Swift closure used to filter the records.
      * - Returns: The result code of `sqlite3_create_function`, e.g. `SQLITE_OK`.
      */
-    @inlinable
     @discardableResult
-    public static func registerSwiftMatcher(
+    static func registerSwiftMatcher(
       `in` unsafeDatabaseHandle: OpaquePointer!,
       flags: Int32 = SQLITE_UTF8,
       matcher: UnsafeRawPointer
@@ -772,9 +763,8 @@ public extension ShiragameSchema.Game {
      *   - flags: SQLite3 function registration flags, default: `SQLITE_UTF8`
      * - Returns: The result code of `sqlite3_create_function`, e.g. `SQLITE_OK`.
      */
-    @inlinable
     @discardableResult
-    public static func unregisterSwiftMatcher(
+    static func unregisterSwiftMatcher(
       `in` unsafeDatabaseHandle: OpaquePointer!,
       flags: Int32 = SQLITE_UTF8
     ) -> Int32
@@ -792,108 +782,108 @@ public extension ShiragameSchema.Game {
     }
     
     /// Type information for property ``Game/id`` (`game_id` column).
-    public let id = MappedColumn<ShiragameSchema.Game, Int?>(
+    let id = MappedColumn<ShiragameSchema.Game, Int?>(
       externalName: "game_id",
       defaultValue: nil,
       keyPath: \ShiragameSchema.Game.id
     )
     
     /// Type information for property ``Game/platformId`` (`platform_id` column).
-    public let platformId = MappedColumn<ShiragameSchema.Game, String>(
+    let platformId = MappedColumn<ShiragameSchema.Game, String>(
       externalName: "platform_id",
       defaultValue: "",
       keyPath: \ShiragameSchema.Game.platformId
     )
     
     /// Type information for property ``Game/entryName`` (`entry_name` column).
-    public let entryName = MappedColumn<ShiragameSchema.Game, String>(
+    let entryName = MappedColumn<ShiragameSchema.Game, String>(
       externalName: "entry_name",
       defaultValue: "",
       keyPath: \ShiragameSchema.Game.entryName
     )
     
     /// Type information for property ``Game/entryTitle`` (`entry_title` column).
-    public let entryTitle = MappedColumn<ShiragameSchema.Game, String?>(
+    let entryTitle = MappedColumn<ShiragameSchema.Game, String?>(
       externalName: "entry_title",
       defaultValue: nil,
       keyPath: \ShiragameSchema.Game.entryTitle
     )
     
     /// Type information for property ``Game/releaseTitle`` (`release_title` column).
-    public let releaseTitle = MappedColumn<ShiragameSchema.Game, String?>(
+    let releaseTitle = MappedColumn<ShiragameSchema.Game, String?>(
       externalName: "release_title",
       defaultValue: nil,
       keyPath: \ShiragameSchema.Game.releaseTitle
     )
     
     /// Type information for property ``Game/region`` (`region` column).
-    public let region = MappedColumn<ShiragameSchema.Game, String>(
+    let region = MappedColumn<ShiragameSchema.Game, String>(
       externalName: "region",
       defaultValue: "",
       keyPath: \ShiragameSchema.Game.region
     )
     
     /// Type information for property ``Game/partNumber`` (`part_number` column).
-    public let partNumber = MappedColumn<ShiragameSchema.Game, Int?>(
+    let partNumber = MappedColumn<ShiragameSchema.Game, Int?>(
       externalName: "part_number",
       defaultValue: nil,
       keyPath: \ShiragameSchema.Game.partNumber
     )
     
     /// Type information for property ``Game/isUnlicensed`` (`is_unlicensed` column).
-    public let isUnlicensed = MappedColumn<ShiragameSchema.Game, Bool>(
+    let isUnlicensed = MappedColumn<ShiragameSchema.Game, Bool>(
       externalName: "is_unlicensed",
       defaultValue: false,
       keyPath: \ShiragameSchema.Game.isUnlicensed
     )
     
     /// Type information for property ``Game/isDemo`` (`is_demo` column).
-    public let isDemo = MappedColumn<ShiragameSchema.Game, Bool>(
+    let isDemo = MappedColumn<ShiragameSchema.Game, Bool>(
       externalName: "is_demo",
       defaultValue: false,
       keyPath: \ShiragameSchema.Game.isDemo
     )
     
     /// Type information for property ``Game/isSystem`` (`is_system` column).
-    public let isSystem = MappedColumn<ShiragameSchema.Game, Bool>(
+    let isSystem = MappedColumn<ShiragameSchema.Game, Bool>(
       externalName: "is_system",
       defaultValue: false,
       keyPath: \ShiragameSchema.Game.isSystem
     )
     
     /// Type information for property ``Game/version`` (`version` column).
-    public let version = MappedColumn<ShiragameSchema.Game, String?>(
+    let version = MappedColumn<ShiragameSchema.Game, String?>(
       externalName: "version",
       defaultValue: nil,
       keyPath: \ShiragameSchema.Game.version
     )
     
     /// Type information for property ``Game/status`` (`status` column).
-    public let status = MappedColumn<ShiragameSchema.Game, String?>(
+    let status = MappedColumn<ShiragameSchema.Game, String?>(
       externalName: "status",
       defaultValue: nil,
       keyPath: \ShiragameSchema.Game.status
     )
     
     /// Type information for property ``Game/namingConvention`` (`naming_convention` column).
-    public let namingConvention = MappedColumn<ShiragameSchema.Game, String?>(
+    let namingConvention = MappedColumn<ShiragameSchema.Game, String?>(
       externalName: "naming_convention",
       defaultValue: nil,
       keyPath: \ShiragameSchema.Game.namingConvention
     )
     
     /// Type information for property ``Game/source`` (`source` column).
-    public let source = MappedColumn<ShiragameSchema.Game, String>(
+    let source = MappedColumn<ShiragameSchema.Game, String>(
       externalName: "source",
       defaultValue: "",
       keyPath: \ShiragameSchema.Game.source
     )
     
     #if swift(>=5.7)
-    public var _allColumns : [ any SQLColumn ] { [ id, platformId, entryName, entryTitle, releaseTitle, region, partNumber, isUnlicensed, isDemo, isSystem, version, status, namingConvention, source ] }
+    var _allColumns : [ any SQLColumn ] { [ id, platformId, entryName, entryTitle, releaseTitle, region, partNumber, isUnlicensed, isDemo, isSystem, version, status, namingConvention, source ] }
     #endif // swift(>=5.7)
     
-    public init()
+    init()
     {
     }
   }
@@ -930,7 +920,6 @@ public extension ShiragameSchema.Game {
    *   - statement: Statement handle as returned by `sqlite3_prepare*` functions.
    *   - indices: Property bindings positions, defaults to `nil` (automatic lookup).
    */
-  @inlinable
   init(_ statement: OpaquePointer!, indices: Schema.PropertyIndices? = nil)
   {
     let indices = indices ?? Self.Schema.lookupColumnIndices(in: statement)
@@ -980,7 +969,6 @@ public extension ShiragameSchema.Game {
    *   - execute: Closure executed with bindings applied, bindings _only_ valid within the call!
    * - Returns: Returns the result of the closure that is passed in.
    */
-  @inlinable
   @discardableResult
   func bind<R>(
     to statement: OpaquePointer!,
@@ -1062,7 +1050,7 @@ public extension ShiragameSchema.Game {
   }
 }
 
-public extension ShiragameSchema.Rom {
+extension ShiragameSchema.Rom {
   
   /**
    * Static type information for the ``Rom`` record (`rom` SQL table).
@@ -1073,48 +1061,48 @@ public extension ShiragameSchema.Rom {
    */
   struct Schema : SQLTableSchema, SQLSwiftMatchableSchema {
     
-    public typealias PropertyIndices = ( idx_fileName: Int32, idx_mimetype: Int32, idx_md5: Int32, idx_crc: Int32, idx_sha1: Int32, idx_size: Int32, idx_gameId: Int32 )
-    public typealias RecordType = ShiragameSchema.Rom
-    public typealias MatchClosureType = ( ShiragameSchema.Rom ) -> Bool
+    typealias PropertyIndices = ( idx_fileName: Int32, idx_mimetype: Int32, idx_md5: Int32, idx_crc: Int32, idx_sha1: Int32, idx_size: Int32, idx_gameId: Int32 )
+    typealias RecordType = ShiragameSchema.Rom
+    typealias MatchClosureType = ( ShiragameSchema.Rom ) -> Bool
     
     /// The SQL table name associated with the ``Rom`` record.
-    public static let externalName = "rom"
+    static let externalName = "rom"
     
     /// The number of columns the `rom` table has.
-    public static let columnCount : Int32 = 7
+    static let columnCount : Int32 = 7
     
     /// SQL to `SELECT` all columns of the `rom` table.
-    public static let select = #"SELECT "file_name", "mimetype", "md5", "crc", "sha1", "size", "game_id" FROM "rom""#
+    static let select = #"SELECT "file_name", "mimetype", "md5", "crc", "sha1", "size", "game_id" FROM "rom""#
     
     /// SQL fragment representing all columns.
-    public static let selectColumns = #""file_name", "mimetype", "md5", "crc", "sha1", "size", "game_id""#
+    static let selectColumns = #""file_name", "mimetype", "md5", "crc", "sha1", "size", "game_id""#
     
     /// Index positions of the properties in ``selectColumns``.
-    public static let selectColumnIndices : PropertyIndices = ( 0, 1, 2, 3, 4, 5, 6 )
+    static let selectColumnIndices : PropertyIndices = ( 0, 1, 2, 3, 4, 5, 6 )
     
     /// SQL to `SELECT` all columns of the `rom` table using a Swift filter.
-    public static let matchSelect = #"SELECT "file_name", "mimetype", "md5", "crc", "sha1", "size", "game_id" FROM "rom" WHERE roms_swift_match("file_name", "mimetype", "md5", "crc", "sha1", "size", "game_id") != 0"#
+    static let matchSelect = #"SELECT "file_name", "mimetype", "md5", "crc", "sha1", "size", "game_id" FROM "rom" WHERE roms_swift_match("file_name", "mimetype", "md5", "crc", "sha1", "size", "game_id") != 0"#
     
     /// *Note*: Readonly database, do not use.
-    public static let update = ""
+    static let update = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let updateParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1 )
+    static let updateParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1 )
     
     /// *Note*: Readonly database, do not use.
-    public static let insert = ""
+    static let insert = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let insertReturning = ""
+    static let insertReturning = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let insertParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1 )
+    static let insertParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1 )
     
     /// *Note*: Readonly database, do not use.
-    public static let delete = ""
+    static let delete = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let deleteParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1 )
+    static let deleteParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1 )
     
     /**
      * Lookup property indices by column name in a statement handle.
@@ -1131,8 +1119,7 @@ public extension ShiragameSchema.Rom {
      *   - statement: A raw SQLite3 prepared statement handle.
      * - Returns: The positions of the properties in the prepared statement.
      */
-    @inlinable
-    public static func lookupColumnIndices(`in` statement: OpaquePointer!)
+    static func lookupColumnIndices(`in` statement: OpaquePointer!)
       -> PropertyIndices
     {
       var indices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1 )
@@ -1175,9 +1162,8 @@ public extension ShiragameSchema.Rom {
      *   - matcher: A pointer to the Swift closure used to filter the records.
      * - Returns: The result code of `sqlite3_create_function`, e.g. `SQLITE_OK`.
      */
-    @inlinable
     @discardableResult
-    public static func registerSwiftMatcher(
+    static func registerSwiftMatcher(
       `in` unsafeDatabaseHandle: OpaquePointer!,
       flags: Int32 = SQLITE_UTF8,
       matcher: UnsafeRawPointer
@@ -1230,9 +1216,8 @@ public extension ShiragameSchema.Rom {
      *   - flags: SQLite3 function registration flags, default: `SQLITE_UTF8`
      * - Returns: The result code of `sqlite3_create_function`, e.g. `SQLITE_OK`.
      */
-    @inlinable
     @discardableResult
-    public static func unregisterSwiftMatcher(
+    static func unregisterSwiftMatcher(
       `in` unsafeDatabaseHandle: OpaquePointer!,
       flags: Int32 = SQLITE_UTF8
     ) -> Int32
@@ -1250,49 +1235,49 @@ public extension ShiragameSchema.Rom {
     }
     
     /// Type information for property ``Rom/fileName`` (`file_name` column).
-    public let fileName = MappedColumn<ShiragameSchema.Rom, String>(
+    let fileName = MappedColumn<ShiragameSchema.Rom, String>(
       externalName: "file_name",
       defaultValue: "",
       keyPath: \ShiragameSchema.Rom.fileName
     )
     
     /// Type information for property ``Rom/mimetype`` (`mimetype` column).
-    public let mimetype = MappedColumn<ShiragameSchema.Rom, String?>(
+    let mimetype = MappedColumn<ShiragameSchema.Rom, String?>(
       externalName: "mimetype",
       defaultValue: nil,
       keyPath: \ShiragameSchema.Rom.mimetype
     )
     
     /// Type information for property ``Rom/md5`` (`md5` column).
-    public let md5 = MappedColumn<ShiragameSchema.Rom, String?>(
+    let md5 = MappedColumn<ShiragameSchema.Rom, String?>(
       externalName: "md5",
       defaultValue: nil,
       keyPath: \ShiragameSchema.Rom.md5
     )
     
     /// Type information for property ``Rom/crc`` (`crc` column).
-    public let crc = MappedColumn<ShiragameSchema.Rom, String?>(
+    let crc = MappedColumn<ShiragameSchema.Rom, String?>(
       externalName: "crc",
       defaultValue: nil,
       keyPath: \ShiragameSchema.Rom.crc
     )
     
     /// Type information for property ``Rom/sha1`` (`sha1` column).
-    public let sha1 = MappedColumn<ShiragameSchema.Rom, String?>(
+    let sha1 = MappedColumn<ShiragameSchema.Rom, String?>(
       externalName: "sha1",
       defaultValue: nil,
       keyPath: \ShiragameSchema.Rom.sha1
     )
     
     /// Type information for property ``Rom/size`` (`size` column).
-    public let size = MappedColumn<ShiragameSchema.Rom, Int>(
+    let size = MappedColumn<ShiragameSchema.Rom, Int>(
       externalName: "size",
       defaultValue: -1,
       keyPath: \ShiragameSchema.Rom.size
     )
     
     /// Type information for property ``Rom/gameId`` (`game_id` column).
-    public let gameId = MappedForeignKey<ShiragameSchema.Rom, Int, MappedColumn<ShiragameSchema.Game, Int?>>(
+    let gameId = MappedForeignKey<ShiragameSchema.Rom, Int, MappedColumn<ShiragameSchema.Game, Int?>>(
       externalName: "game_id",
       defaultValue: -1,
       keyPath: \ShiragameSchema.Rom.gameId,
@@ -1300,10 +1285,10 @@ public extension ShiragameSchema.Rom {
     )
     
     #if swift(>=5.7)
-    public var _allColumns : [ any SQLColumn ] { [ fileName, mimetype, md5, crc, sha1, size, gameId ] }
+    var _allColumns : [ any SQLColumn ] { [ fileName, mimetype, md5, crc, sha1, size, gameId ] }
     #endif // swift(>=5.7)
     
-    public init()
+    init()
     {
     }
   }
@@ -1340,7 +1325,6 @@ public extension ShiragameSchema.Rom {
    *   - statement: Statement handle as returned by `sqlite3_prepare*` functions.
    *   - indices: Property bindings positions, defaults to `nil` (automatic lookup).
    */
-  @inlinable
   init(_ statement: OpaquePointer!, indices: Schema.PropertyIndices? = nil)
   {
     let indices = indices ?? Self.Schema.lookupColumnIndices(in: statement)
@@ -1383,7 +1367,6 @@ public extension ShiragameSchema.Rom {
    *   - execute: Closure executed with bindings applied, bindings _only_ valid within the call!
    * - Returns: Returns the result of the closure that is passed in.
    */
-  @inlinable
   @discardableResult
   func bind<R>(
     to statement: OpaquePointer!,
@@ -1426,7 +1409,7 @@ public extension ShiragameSchema.Rom {
   }
 }
 
-public extension ShiragameSchema.Serial {
+extension ShiragameSchema.Serial {
   
   /**
    * Static type information for the ``Serial`` record (`serial` SQL table).
@@ -1437,48 +1420,48 @@ public extension ShiragameSchema.Serial {
    */
   struct Schema : SQLTableSchema, SQLSwiftMatchableSchema {
     
-    public typealias PropertyIndices = ( idx_serial: Int32, idx_normalized: Int32, idx_gameId: Int32 )
-    public typealias RecordType = ShiragameSchema.Serial
-    public typealias MatchClosureType = ( ShiragameSchema.Serial ) -> Bool
+    typealias PropertyIndices = ( idx_serial: Int32, idx_normalized: Int32, idx_gameId: Int32 )
+    typealias RecordType = ShiragameSchema.Serial
+    typealias MatchClosureType = ( ShiragameSchema.Serial ) -> Bool
     
     /// The SQL table name associated with the ``Serial`` record.
-    public static let externalName = "serial"
+    static let externalName = "serial"
     
     /// The number of columns the `serial` table has.
-    public static let columnCount : Int32 = 3
+    static let columnCount : Int32 = 3
     
     /// SQL to `SELECT` all columns of the `serial` table.
-    public static let select = #"SELECT "serial", "normalized", "game_id" FROM "serial""#
+    static let select = #"SELECT "serial", "normalized", "game_id" FROM "serial""#
     
     /// SQL fragment representing all columns.
-    public static let selectColumns = #""serial", "normalized", "game_id""#
+    static let selectColumns = #""serial", "normalized", "game_id""#
     
     /// Index positions of the properties in ``selectColumns``.
-    public static let selectColumnIndices : PropertyIndices = ( 0, 1, 2 )
+    static let selectColumnIndices : PropertyIndices = ( 0, 1, 2 )
     
     /// SQL to `SELECT` all columns of the `serial` table using a Swift filter.
-    public static let matchSelect = #"SELECT "serial", "normalized", "game_id" FROM "serial" WHERE serials_swift_match("serial", "normalized", "game_id") != 0"#
+    static let matchSelect = #"SELECT "serial", "normalized", "game_id" FROM "serial" WHERE serials_swift_match("serial", "normalized", "game_id") != 0"#
     
     /// *Note*: Readonly database, do not use.
-    public static let update = ""
+    static let update = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let updateParameterIndices : PropertyIndices = ( -1, -1, -1 )
+    static let updateParameterIndices : PropertyIndices = ( -1, -1, -1 )
     
     /// *Note*: Readonly database, do not use.
-    public static let insert = ""
+    static let insert = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let insertReturning = ""
+    static let insertReturning = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let insertParameterIndices : PropertyIndices = ( -1, -1, -1 )
+    static let insertParameterIndices : PropertyIndices = ( -1, -1, -1 )
     
     /// *Note*: Readonly database, do not use.
-    public static let delete = ""
+    static let delete = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let deleteParameterIndices : PropertyIndices = ( -1, -1, -1 )
+    static let deleteParameterIndices : PropertyIndices = ( -1, -1, -1 )
     
     /**
      * Lookup property indices by column name in a statement handle.
@@ -1495,8 +1478,7 @@ public extension ShiragameSchema.Serial {
      *   - statement: A raw SQLite3 prepared statement handle.
      * - Returns: The positions of the properties in the prepared statement.
      */
-    @inlinable
-    public static func lookupColumnIndices(`in` statement: OpaquePointer!)
+    static func lookupColumnIndices(`in` statement: OpaquePointer!)
       -> PropertyIndices
     {
       var indices : PropertyIndices = ( -1, -1, -1 )
@@ -1527,9 +1509,8 @@ public extension ShiragameSchema.Serial {
      *   - matcher: A pointer to the Swift closure used to filter the records.
      * - Returns: The result code of `sqlite3_create_function`, e.g. `SQLITE_OK`.
      */
-    @inlinable
     @discardableResult
-    public static func registerSwiftMatcher(
+    static func registerSwiftMatcher(
       `in` unsafeDatabaseHandle: OpaquePointer!,
       flags: Int32 = SQLITE_UTF8,
       matcher: UnsafeRawPointer
@@ -1578,9 +1559,8 @@ public extension ShiragameSchema.Serial {
      *   - flags: SQLite3 function registration flags, default: `SQLITE_UTF8`
      * - Returns: The result code of `sqlite3_create_function`, e.g. `SQLITE_OK`.
      */
-    @inlinable
     @discardableResult
-    public static func unregisterSwiftMatcher(
+    static func unregisterSwiftMatcher(
       `in` unsafeDatabaseHandle: OpaquePointer!,
       flags: Int32 = SQLITE_UTF8
     ) -> Int32
@@ -1598,21 +1578,21 @@ public extension ShiragameSchema.Serial {
     }
     
     /// Type information for property ``Serial/serial`` (`serial` column).
-    public let serial = MappedColumn<ShiragameSchema.Serial, String>(
+    let serial = MappedColumn<ShiragameSchema.Serial, String>(
       externalName: "serial",
       defaultValue: "",
       keyPath: \ShiragameSchema.Serial.serial
     )
     
     /// Type information for property ``Serial/normalized`` (`normalized` column).
-    public let normalized = MappedColumn<ShiragameSchema.Serial, String>(
+    let normalized = MappedColumn<ShiragameSchema.Serial, String>(
       externalName: "normalized",
       defaultValue: "",
       keyPath: \ShiragameSchema.Serial.normalized
     )
     
     /// Type information for property ``Serial/gameId`` (`game_id` column).
-    public let gameId = MappedForeignKey<ShiragameSchema.Serial, Int, MappedColumn<ShiragameSchema.Game, Int?>>(
+    let gameId = MappedForeignKey<ShiragameSchema.Serial, Int, MappedColumn<ShiragameSchema.Game, Int?>>(
       externalName: "game_id",
       defaultValue: -1,
       keyPath: \ShiragameSchema.Serial.gameId,
@@ -1620,10 +1600,10 @@ public extension ShiragameSchema.Serial {
     )
     
     #if swift(>=5.7)
-    public var _allColumns : [ any SQLColumn ] { [ serial, normalized, gameId ] }
+    var _allColumns : [ any SQLColumn ] { [ serial, normalized, gameId ] }
     #endif // swift(>=5.7)
     
-    public init()
+    init()
     {
     }
   }
@@ -1660,7 +1640,6 @@ public extension ShiragameSchema.Serial {
    *   - statement: Statement handle as returned by `sqlite3_prepare*` functions.
    *   - indices: Property bindings positions, defaults to `nil` (automatic lookup).
    */
-  @inlinable
   init(_ statement: OpaquePointer!, indices: Schema.PropertyIndices? = nil)
   {
     let indices = indices ?? Self.Schema.lookupColumnIndices(in: statement)
@@ -1699,7 +1678,6 @@ public extension ShiragameSchema.Serial {
    *   - execute: Closure executed with bindings applied, bindings _only_ valid within the call!
    * - Returns: Returns the result of the closure that is passed in.
    */
-  @inlinable
   @discardableResult
   func bind<R>(
     to statement: OpaquePointer!,
@@ -1724,7 +1702,7 @@ public extension ShiragameSchema.Serial {
   }
 }
 
-public extension ShiragameSchema.Shiragame {
+extension ShiragameSchema.Shiragame {
   
   /**
    * Static type information for the ``Shiragame`` record (`shiragame` SQL table).
@@ -1735,48 +1713,48 @@ public extension ShiragameSchema.Shiragame {
    */
   struct Schema : SQLTableSchema, SQLSwiftMatchableSchema {
     
-    public typealias PropertyIndices = ( idx_shiragame: Int32, idx_schemaVersion: Int32, idx_stoneVersion: Int32, idx_generated: Int32, idx_release: Int32, idx_aggregator: Int32 )
-    public typealias RecordType = ShiragameSchema.Shiragame
-    public typealias MatchClosureType = ( ShiragameSchema.Shiragame ) -> Bool
+    typealias PropertyIndices = ( idx_shiragame: Int32, idx_schemaVersion: Int32, idx_stoneVersion: Int32, idx_generated: Int32, idx_release: Int32, idx_aggregator: Int32 )
+    typealias RecordType = ShiragameSchema.Shiragame
+    typealias MatchClosureType = ( ShiragameSchema.Shiragame ) -> Bool
     
     /// The SQL table name associated with the ``Shiragame`` record.
-    public static let externalName = "shiragame"
+    static let externalName = "shiragame"
     
     /// The number of columns the `shiragame` table has.
-    public static let columnCount : Int32 = 6
+    static let columnCount : Int32 = 6
     
     /// SQL to `SELECT` all columns of the `shiragame` table.
-    public static let select = #"SELECT "shiragame", "schema_version", "stone_version", "generated", "release", "aggregator" FROM "shiragame""#
+    static let select = #"SELECT "shiragame", "schema_version", "stone_version", "generated", "release", "aggregator" FROM "shiragame""#
     
     /// SQL fragment representing all columns.
-    public static let selectColumns = #""shiragame", "schema_version", "stone_version", "generated", "release", "aggregator""#
+    static let selectColumns = #""shiragame", "schema_version", "stone_version", "generated", "release", "aggregator""#
     
     /// Index positions of the properties in ``selectColumns``.
-    public static let selectColumnIndices : PropertyIndices = ( 0, 1, 2, 3, 4, 5 )
+    static let selectColumnIndices : PropertyIndices = ( 0, 1, 2, 3, 4, 5 )
     
     /// SQL to `SELECT` all columns of the `shiragame` table using a Swift filter.
-    public static let matchSelect = #"SELECT "shiragame", "schema_version", "stone_version", "generated", "release", "aggregator" FROM "shiragame" WHERE shiragames_swift_match("shiragame", "schema_version", "stone_version", "generated", "release", "aggregator") != 0"#
+    static let matchSelect = #"SELECT "shiragame", "schema_version", "stone_version", "generated", "release", "aggregator" FROM "shiragame" WHERE shiragames_swift_match("shiragame", "schema_version", "stone_version", "generated", "release", "aggregator") != 0"#
     
     /// *Note*: Readonly database, do not use.
-    public static let update = ""
+    static let update = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let updateParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1 )
+    static let updateParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1 )
     
     /// *Note*: Readonly database, do not use.
-    public static let insert = ""
+    static let insert = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let insertReturning = ""
+    static let insertReturning = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let insertParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1 )
+    static let insertParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1 )
     
     /// *Note*: Readonly database, do not use.
-    public static let delete = ""
+    static let delete = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let deleteParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1 )
+    static let deleteParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1 )
     
     /**
      * Lookup property indices by column name in a statement handle.
@@ -1793,8 +1771,7 @@ public extension ShiragameSchema.Shiragame {
      *   - statement: A raw SQLite3 prepared statement handle.
      * - Returns: The positions of the properties in the prepared statement.
      */
-    @inlinable
-    public static func lookupColumnIndices(`in` statement: OpaquePointer!)
+    static func lookupColumnIndices(`in` statement: OpaquePointer!)
       -> PropertyIndices
     {
       var indices : PropertyIndices = ( -1, -1, -1, -1, -1, -1 )
@@ -1834,9 +1811,8 @@ public extension ShiragameSchema.Shiragame {
      *   - matcher: A pointer to the Swift closure used to filter the records.
      * - Returns: The result code of `sqlite3_create_function`, e.g. `SQLITE_OK`.
      */
-    @inlinable
     @discardableResult
-    public static func registerSwiftMatcher(
+    static func registerSwiftMatcher(
       `in` unsafeDatabaseHandle: OpaquePointer!,
       flags: Int32 = SQLITE_UTF8,
       matcher: UnsafeRawPointer
@@ -1888,9 +1864,8 @@ public extension ShiragameSchema.Shiragame {
      *   - flags: SQLite3 function registration flags, default: `SQLITE_UTF8`
      * - Returns: The result code of `sqlite3_create_function`, e.g. `SQLITE_OK`.
      */
-    @inlinable
     @discardableResult
-    public static func unregisterSwiftMatcher(
+    static func unregisterSwiftMatcher(
       `in` unsafeDatabaseHandle: OpaquePointer!,
       flags: Int32 = SQLITE_UTF8
     ) -> Int32
@@ -1908,52 +1883,52 @@ public extension ShiragameSchema.Shiragame {
     }
     
     /// Type information for property ``Shiragame/shiragame`` (`shiragame` column).
-    public let shiragame = MappedColumn<ShiragameSchema.Shiragame, String?>(
+    let shiragame = MappedColumn<ShiragameSchema.Shiragame, String?>(
       externalName: "shiragame",
       defaultValue: nil,
       keyPath: \ShiragameSchema.Shiragame.shiragame
     )
     
     /// Type information for property ``Shiragame/schemaVersion`` (`schema_version` column).
-    public let schemaVersion = MappedColumn<ShiragameSchema.Shiragame, String?>(
+    let schemaVersion = MappedColumn<ShiragameSchema.Shiragame, String?>(
       externalName: "schema_version",
       defaultValue: nil,
       keyPath: \ShiragameSchema.Shiragame.schemaVersion
     )
     
     /// Type information for property ``Shiragame/stoneVersion`` (`stone_version` column).
-    public let stoneVersion = MappedColumn<ShiragameSchema.Shiragame, String?>(
+    let stoneVersion = MappedColumn<ShiragameSchema.Shiragame, String?>(
       externalName: "stone_version",
       defaultValue: nil,
       keyPath: \ShiragameSchema.Shiragame.stoneVersion
     )
     
     /// Type information for property ``Shiragame/generated`` (`generated` column).
-    public let generated = MappedColumn<ShiragameSchema.Shiragame, String?>(
+    let generated = MappedColumn<ShiragameSchema.Shiragame, String?>(
       externalName: "generated",
       defaultValue: nil,
       keyPath: \ShiragameSchema.Shiragame.generated
     )
     
     /// Type information for property ``Shiragame/release`` (`release` column).
-    public let release = MappedColumn<ShiragameSchema.Shiragame, String?>(
+    let release = MappedColumn<ShiragameSchema.Shiragame, String?>(
       externalName: "release",
       defaultValue: nil,
       keyPath: \ShiragameSchema.Shiragame.release
     )
     
     /// Type information for property ``Shiragame/aggregator`` (`aggregator` column).
-    public let aggregator = MappedColumn<ShiragameSchema.Shiragame, String?>(
+    let aggregator = MappedColumn<ShiragameSchema.Shiragame, String?>(
       externalName: "aggregator",
       defaultValue: nil,
       keyPath: \ShiragameSchema.Shiragame.aggregator
     )
     
     #if swift(>=5.7)
-    public var _allColumns : [ any SQLColumn ] { [ shiragame, schemaVersion, stoneVersion, generated, release, aggregator ] }
+    var _allColumns : [ any SQLColumn ] { [ shiragame, schemaVersion, stoneVersion, generated, release, aggregator ] }
     #endif // swift(>=5.7)
     
-    public init()
+    init()
     {
     }
   }
@@ -1990,7 +1965,6 @@ public extension ShiragameSchema.Shiragame {
    *   - statement: Statement handle as returned by `sqlite3_prepare*` functions.
    *   - indices: Property bindings positions, defaults to `nil` (automatic lookup).
    */
-  @inlinable
   init(_ statement: OpaquePointer!, indices: Schema.PropertyIndices? = nil)
   {
     let indices = indices ?? Self.Schema.lookupColumnIndices(in: statement)
@@ -2032,7 +2006,6 @@ public extension ShiragameSchema.Shiragame {
    *   - execute: Closure executed with bindings applied, bindings _only_ valid within the call!
    * - Returns: Returns the result of the closure that is passed in.
    */
-  @inlinable
   @discardableResult
   func bind<R>(
     to statement: OpaquePointer!,
@@ -2074,7 +2047,7 @@ public extension ShiragameSchema.Shiragame {
   }
 }
 
-public extension SQLRecordFetchOperations
+extension SQLRecordFetchOperations
   where T == ShiragameSchema.Game, Ops: SQLDatabaseFetchOperations, Ops.RecordTypes == ShiragameSchema.RecordTypes
 {
   
@@ -2094,7 +2067,6 @@ public extension SQLRecordFetchOperations
    *   - record: The ``Rom`` record.
    * - Returns: The related ``ShiragameSchema/Game`` record (throws if not found).
    */
-  @inlinable
   func find(`for` record: ShiragameSchema.Rom) throws -> ShiragameSchema.Game
   {
     if let record = try operations[dynamicMember: \.roms].findTarget(for: \.gameId, in: record) {
@@ -2121,7 +2093,6 @@ public extension SQLRecordFetchOperations
    *   - record: The ``Serial`` record.
    * - Returns: The related ``ShiragameSchema/Game`` record (throws if not found).
    */
-  @inlinable
   func find(`for` record: ShiragameSchema.Serial) throws -> ShiragameSchema.Game
   {
     if let record = try operations[dynamicMember: \.serials].findTarget(for: \.gameId, in: record) {
@@ -2133,7 +2104,7 @@ public extension SQLRecordFetchOperations
   }
 }
 
-public extension SQLRecordFetchOperations
+extension SQLRecordFetchOperations
   where T == ShiragameSchema.Rom, Ops: SQLDatabaseFetchOperations, Ops.RecordTypes == ShiragameSchema.RecordTypes
 {
   
@@ -2154,7 +2125,6 @@ public extension SQLRecordFetchOperations
    *   - limit: An optional limit of records to fetch (defaults to `nil`).
    * - Returns: The related ``Game`` records.
    */
-  @inlinable
   func fetch(`for` record: ShiragameSchema.Game, limit: Int? = nil)
     throws -> [ ShiragameSchema.Rom ]
   {
@@ -2162,7 +2132,7 @@ public extension SQLRecordFetchOperations
   }
 }
 
-public extension SQLRecordFetchOperations
+extension SQLRecordFetchOperations
   where T == ShiragameSchema.Serial, Ops: SQLDatabaseFetchOperations, Ops.RecordTypes == ShiragameSchema.RecordTypes
 {
   
@@ -2183,7 +2153,6 @@ public extension SQLRecordFetchOperations
    *   - limit: An optional limit of records to fetch (defaults to `nil`).
    * - Returns: The related ``Game`` records.
    */
-  @inlinable
   func fetch(`for` record: ShiragameSchema.Game, limit: Int? = nil)
     throws -> [ ShiragameSchema.Serial ]
   {
@@ -2194,7 +2163,7 @@ public extension SQLRecordFetchOperations
 #if swift(>=5.5)
 #if canImport(_Concurrency)
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
-public extension SQLRecordFetchOperations
+extension SQLRecordFetchOperations
   where T == ShiragameSchema.Game, Ops: SQLDatabaseFetchOperations & SQLDatabaseAsyncOperations, Ops.RecordTypes == ShiragameSchema.RecordTypes
 {
   
@@ -2214,7 +2183,6 @@ public extension SQLRecordFetchOperations
    *   - record: The ``Rom`` record.
    * - Returns: The related ``ShiragameSchema/Game`` record (throws if not found).
    */
-  @inlinable
   func find(`for` record: ShiragameSchema.Rom) async throws -> ShiragameSchema.Game
   {
     if let record = try await operations[dynamicMember: \.roms].findTarget(for: \.gameId, in: record) {
@@ -2241,7 +2209,6 @@ public extension SQLRecordFetchOperations
    *   - record: The ``Serial`` record.
    * - Returns: The related ``ShiragameSchema/Game`` record (throws if not found).
    */
-  @inlinable
   func find(`for` record: ShiragameSchema.Serial)
     async throws -> ShiragameSchema.Game
   {
@@ -2262,7 +2229,7 @@ public extension SQLRecordFetchOperations
 #if swift(>=5.5)
 #if canImport(_Concurrency)
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
-public extension SQLRecordFetchOperations
+extension SQLRecordFetchOperations
   where T == ShiragameSchema.Rom, Ops: SQLDatabaseFetchOperations & SQLDatabaseAsyncOperations, Ops.RecordTypes == ShiragameSchema.RecordTypes
 {
   
@@ -2283,7 +2250,6 @@ public extension SQLRecordFetchOperations
    *   - limit: An optional limit of records to fetch (defaults to `nil`).
    * - Returns: The related ``Game`` records.
    */
-  @inlinable
   func fetch(`for` record: ShiragameSchema.Game, limit: Int? = nil)
     async throws -> [ ShiragameSchema.Rom ]
   {
@@ -2296,7 +2262,7 @@ public extension SQLRecordFetchOperations
 #if swift(>=5.5)
 #if canImport(_Concurrency)
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
-public extension SQLRecordFetchOperations
+extension SQLRecordFetchOperations
   where T == ShiragameSchema.Serial, Ops: SQLDatabaseFetchOperations & SQLDatabaseAsyncOperations, Ops.RecordTypes == ShiragameSchema.RecordTypes
 {
   
@@ -2317,7 +2283,6 @@ public extension SQLRecordFetchOperations
    *   - limit: An optional limit of records to fetch (defaults to `nil`).
    * - Returns: The related ``Game`` records.
    */
-  @inlinable
   func fetch(`for` record: ShiragameSchema.Game, limit: Int? = nil)
     async throws -> [ ShiragameSchema.Serial ]
   {

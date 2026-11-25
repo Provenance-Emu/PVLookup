@@ -1,6 +1,6 @@
 import Foundation
 import ZIPFoundation
-import PVLookupLogging
+@_spi(PVLookup) import PVLookupLogging
 
 public extension FileManager {
     /// Extracts a zip file to a destination directory

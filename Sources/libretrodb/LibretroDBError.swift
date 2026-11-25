@@ -8,7 +8,7 @@
 import Foundation
 
 /// Errors that can occur when working with LibretroDB
-public enum LibretroDBError: LocalizedError {
+@frozen public enum LibretroDBError: LocalizedError {
     case databaseNotInitialized
     case invalidGameID
     case gameNotFound

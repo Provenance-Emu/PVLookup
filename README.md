@@ -83,3 +83,27 @@ in Caches by an earlier run.
 
 Seeded on 2026-10-17 from Provenance's `PVLookup/` (Provenance-Emu/Provenance `9529d8509c`), with
 iFly's fixes ported on top.
+
+## Prebuilt XCFrameworks
+
+A version tag resolves to prebuilt XCFrameworks: the tag's `Package.swift` is a
+`binaryTarget` pointing at the tag's GitHub Release, so an app that depends on a version
+compiles none of this package. `main` and every other branch build from source.
+
+To build a tagged version from source (to step into it in the debugger, say), set
+`PV_BUILD_FROM_SOURCE=1` in the environment `xcodebuild` or Xcode starts in, then resolve
+packages again.
+
+To release, run **Release XCFramework** from the Actions tab with the new version. Do not
+push version tags by hand: such a tag has no binary and builds from source.
+[How releases work](https://github.com/Provenance-Emu/.github/blob/main/docs/xcframework-releases.md).
+
+SQLite.swift and ZIPFoundation come from
+[PVDependencies](https://github.com/Provenance-Emu/PVDependencies), a prebuilt copy shared
+with the apps. An app that uses PVLookup takes those two from there as well: a package
+graph cannot hold that copy and the upstream packages at once. Lighter and swift-crypto
+are linked inside the frameworks that use them and are not part of any interface.
+
+The Lighter-generated schema files (`OpenVGDBSQL.swift`, `ShiraGameSQL.swift`) are
+internal. After regenerating them, strip `public` and `@inlinable` again and keep
+`internal import Lighter`.

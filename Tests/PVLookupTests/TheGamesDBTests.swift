@@ -1,5 +1,5 @@
 import Testing
-import PVLookupLogging
+@_spi(PVLookup) import PVLookupLogging
 import PVSystems
 import Foundation
 @testable import PVLookup

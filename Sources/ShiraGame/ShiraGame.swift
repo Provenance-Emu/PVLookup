@@ -1,6 +1,6 @@
 import Foundation
-import PVLookupLogging
-import Lighter
+@_spi(PVLookup) import PVLookupLogging
+internal import Lighter
 import ROMMetadataProvider
 import PVLookupTypes
 import PVSystems

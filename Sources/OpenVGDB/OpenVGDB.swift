@@ -6,9 +6,9 @@
 //
 
 import Foundation
-import PVLookupLogging
+@_spi(PVLookup) import PVLookupLogging
 import SQLite
-import PVSQLiteDatabase
+@_spi(PVLookup) import PVSQLiteDatabase
 import ROMMetadataProvider
 import PVLookupTypes
 import PVSystems

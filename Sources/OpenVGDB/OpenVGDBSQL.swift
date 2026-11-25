@@ -1,8 +1,8 @@
 // Autocreated by sqlite2swift at 2024-10-20T18:24:10Z
 
-import SQLite3
+internal import SQLite3
 import Foundation
-import Lighter
+internal import Lighter
 
 /**
  * A structure representing a SQLite database.
@@ -39,7 +39,7 @@ import Lighter
  * ```
  */
 @dynamicMemberLookup
-public struct OpenvgdbSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
+struct OpenvgdbSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
   
   /**
    * Mappings of table/view Swift types to their "reference name".
@@ -49,19 +49,19 @@ public struct OpenvgdbSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
    * "reference names" (e.g. ``rEGIONS``) to the
    * "record type" of the table (e.g. ``REGIONS``.self).
    */
-  public struct RecordTypes : Swift.Sendable {
+  struct RecordTypes : Swift.Sendable {
     
     /// Returns the REGIONS type information (SQL: `REGIONS`).
-    public let rEGIONS = REGIONS.self
+    let rEGIONS = REGIONS.self
     
     /// Returns the RELEASES type information (SQL: `RELEASES`).
-    public let rELEASES = RELEASES.self
+    let rELEASES = RELEASES.self
     
     /// Returns the ROMs type information (SQL: `ROMs`).
-    public let rOMs = ROMs.self
+    let rOMs = ROMs.self
     
     /// Returns the SYSTEMS type information (SQL: `SYSTEMS`).
-    public let sYSTEMS = SYSTEMS.self
+    let sYSTEMS = SYSTEMS.self
   }
   
   /**
@@ -97,16 +97,16 @@ public struct OpenvgdbSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
    * )
    * ```
    */
-  public struct REGIONS : Identifiable, SQLKeyedTableRecord, Codable, Sendable {
+  struct REGIONS : Identifiable, SQLKeyedTableRecord, Codable, Sendable {
     
     /// Static SQL type information for the ``REGIONS`` record.
-    public static let schema = Schema()
+    static let schema = Schema()
     
     /// Primary key `regionID` (`INTEGER`), optional (default: `nil`).
-    public var id : Int?
+    var id : Int?
     
     /// Column `regionName` (`TEXT`), optional (default: `nil`).
-    public var regionName : String?
+    var regionName : String?
     
     /**
      * Initialize a new ``REGIONS`` record.
@@ -115,8 +115,7 @@ public struct OpenvgdbSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
      *   - id: Primary key `regionID` (`INTEGER`), optional (default: `nil`).
      *   - regionName: Column `regionName` (`TEXT`), optional (default: `nil`).
      */
-    @inlinable
-    public init(id: Int? = nil, regionName: String? = nil)
+    init(id: Int? = nil, regionName: String? = nil)
     {
       self.id = id
       self.regionName = regionName
@@ -172,64 +171,64 @@ public struct OpenvgdbSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
    * )
    * ```
    */
-  public struct RELEASES : Identifiable, SQLKeyedTableRecord, Codable, Sendable {
+  struct RELEASES : Identifiable, SQLKeyedTableRecord, Codable, Sendable {
     
     /// Static SQL type information for the ``RELEASES`` record.
-    public static let schema = Schema()
+    static let schema = Schema()
     
     /// Primary key `releaseID` (`INTEGER`), optional (default: `nil`).
-    public var id : Int?
+    var id : Int?
     
     /// Column `romID` (`INTEGER`), optional (default: `nil`).
-    public var romID : Int?
+    var romID : Int?
     
     /// Column `releaseTitleName` (`TEXT`), optional (default: `nil`).
-    public var releaseTitleName : String?
+    var releaseTitleName : String?
     
     /// Column `regionLocalizedID` (`INTEGER`), optional (default: `nil`).
-    public var regionLocalizedID : Int?
+    var regionLocalizedID : Int?
     
     /// Column `TEMPregionLocalizedName` (`TEXT`), optional (default: `nil`).
-    public var tEMPregionLocalizedName : String?
+    var tEMPregionLocalizedName : String?
     
     /// Column `TEMPsystemShortName` (`TEXT`), optional (default: `nil`).
-    public var tEMPsystemShortName : String?
+    var tEMPsystemShortName : String?
     
     /// Column `TEMPsystemName` (`TEXT`), optional (default: `nil`).
-    public var tEMPsystemName : String?
+    var tEMPsystemName : String?
     
     /// Column `releaseCoverFront` (`TEXT`), optional (default: `nil`).
-    public var releaseCoverFront : String?
+    var releaseCoverFront : String?
     
     /// Column `releaseCoverBack` (`TEXT`), optional (default: `nil`).
-    public var releaseCoverBack : String?
+    var releaseCoverBack : String?
     
     /// Column `releaseCoverCart` (`TEXT`), optional (default: `nil`).
-    public var releaseCoverCart : String?
+    var releaseCoverCart : String?
     
     /// Column `releaseCoverDisc` (`TEXT`), optional (default: `nil`).
-    public var releaseCoverDisc : String?
+    var releaseCoverDisc : String?
     
     /// Column `releaseDescription` (`TEXT`), optional (default: `nil`).
-    public var releaseDescription : String?
+    var releaseDescription : String?
     
     /// Column `releaseDeveloper` (`TEXT`), optional (default: `nil`).
-    public var releaseDeveloper : String?
+    var releaseDeveloper : String?
     
     /// Column `releasePublisher` (`TEXT`), optional (default: `nil`).
-    public var releasePublisher : String?
+    var releasePublisher : String?
     
     /// Column `releaseGenre` (`TEXT`), optional (default: `nil`).
-    public var releaseGenre : String?
+    var releaseGenre : String?
     
     /// Column `releaseDate` (`TEXT`), optional (default: `nil`).
-    public var releaseDate : String?
+    var releaseDate : String?
     
     /// Column `releaseReferenceURL` (`TEXT`), optional (default: `nil`).
-    public var releaseReferenceURL : String?
+    var releaseReferenceURL : String?
     
     /// Column `releaseReferenceImageURL` (`TEXT`), optional (default: `nil`).
-    public var releaseReferenceImageURL : String?
+    var releaseReferenceImageURL : String?
     
     /**
      * Initialize a new ``RELEASES`` record.
@@ -254,8 +253,7 @@ public struct OpenvgdbSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
      *   - releaseReferenceURL: Column `releaseReferenceURL` (`TEXT`), optional (default: `nil`).
      *   - releaseReferenceImageURL: Column `releaseReferenceImageURL` (`TEXT`), optional (default: `nil`).
      */
-    @inlinable
-    public init(
+    init(
       id: Int? = nil,
       romID: Int? = nil,
       releaseTitleName: String? = nil,
@@ -343,55 +341,55 @@ public struct OpenvgdbSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
    * )
    * ```
    */
-  public struct ROMs : Identifiable, SQLKeyedTableRecord, Codable, Sendable {
+  struct ROMs : Identifiable, SQLKeyedTableRecord, Codable, Sendable {
     
     /// Static SQL type information for the ``ROMs`` record.
-    public static let schema = Schema()
+    static let schema = Schema()
     
     /// Primary key `romID` (`INTEGER`), optional (default: `nil`).
-    public var id : Int?
+    var id : Int?
     
     /// Column `systemID` (`INTEGER`), optional (default: `nil`).
-    public var systemID : Int?
+    var systemID : Int?
     
     /// Column `regionID` (`INTEGER`), optional (default: `nil`).
-    public var regionID : Int?
+    var regionID : Int?
     
     /// Column `romHashCRC` (`TEXT`), optional (default: `nil`).
-    public var romHashCRC : String?
+    var romHashCRC : String?
     
     /// Column `romHashMD5` (`TEXT`), optional (default: `nil`).
-    public var romHashMD5 : String?
+    var romHashMD5 : String?
     
     /// Column `romHashSHA1` (`TEXT`), optional (default: `nil`).
-    public var romHashSHA1 : String?
+    var romHashSHA1 : String?
     
     /// Column `romSize` (`INTEGER`), optional (default: `nil`).
-    public var romSize : Int?
+    var romSize : Int?
     
     /// Column `romFileName` (`TEXT`), optional (default: `nil`).
-    public var romFileName : String?
+    var romFileName : String?
     
     /// Column `romExtensionlessFileName` (`TEXT`), optional (default: `nil`).
-    public var romExtensionlessFileName : String?
+    var romExtensionlessFileName : String?
     
     /// Column `romParent` (`TEXT`), optional (default: `nil`).
-    public var romParent : String?
+    var romParent : String?
     
     /// Column `romSerial` (`TEXT`), optional (default: `nil`).
-    public var romSerial : String?
+    var romSerial : String?
     
     /// Column `romHeader` (`TEXT`), optional (default: `nil`).
-    public var romHeader : String?
+    var romHeader : String?
     
     /// Column `romLanguage` (`TEXT`), optional (default: `nil`).
-    public var romLanguage : String?
+    var romLanguage : String?
     
     /// Column `TEMPromRegion` (`TEXT`), optional (default: `nil`).
-    public var tEMPromRegion : String?
+    var tEMPromRegion : String?
     
     /// Column `romDumpSource` (`TEXT`), optional (default: `nil`).
-    public var romDumpSource : String?
+    var romDumpSource : String?
     
     /**
      * Initialize a new ``ROMs`` record.
@@ -413,8 +411,7 @@ public struct OpenvgdbSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
      *   - tEMPromRegion: Column `TEMPromRegion` (`TEXT`), optional (default: `nil`).
      *   - romDumpSource: Column `romDumpSource` (`TEXT`), optional (default: `nil`).
      */
-    @inlinable
-    public init(
+    init(
       id: Int? = nil,
       systemID: Int? = nil,
       regionID: Int? = nil,
@@ -489,34 +486,34 @@ public struct OpenvgdbSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
    * )
    * ```
    */
-  public struct SYSTEMS : Identifiable, SQLKeyedTableRecord, Codable, Sendable {
+  struct SYSTEMS : Identifiable, SQLKeyedTableRecord, Codable, Sendable {
     
     /// Static SQL type information for the ``SYSTEMS`` record.
-    public static let schema = Schema()
+    static let schema = Schema()
     
     /// Primary key `systemID` (`INTEGER`), optional (default: `nil`).
-    public var id : Int?
+    var id : Int?
     
     /// Column `systemName` (`TEXT`), optional (default: `nil`).
-    public var systemName : String?
+    var systemName : String?
     
     /// Column `systemShortName` (`TEXT`), optional (default: `nil`).
-    public var systemShortName : String?
+    var systemShortName : String?
     
     /// Column `systemHeaderSizeBytes` (`INTEGER`), optional (default: `nil`).
-    public var systemHeaderSizeBytes : Int?
+    var systemHeaderSizeBytes : Int?
     
     /// Column `systemHashless` (`INTEGER`), optional (default: `nil`).
-    public var systemHashless : Int?
+    var systemHashless : Int?
     
     /// Column `systemHeader` (`INTEGER`), optional (default: `nil`).
-    public var systemHeader : Int?
+    var systemHeader : Int?
     
     /// Column `systemSerial` (`TEXT`), optional (default: `nil`).
-    public var systemSerial : String?
+    var systemSerial : String?
     
     /// Column `systemOEID` (`TEXT`), optional (default: `nil`).
-    public var systemOEID : String?
+    var systemOEID : String?
     
     /**
      * Initialize a new ``SYSTEMS`` record.
@@ -531,8 +528,7 @@ public struct OpenvgdbSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
      *   - systemSerial: Column `systemSerial` (`TEXT`), optional (default: `nil`).
      *   - systemOEID: Column `systemOEID` (`TEXT`), optional (default: `nil`).
      */
-    @inlinable
-    public init(
+    init(
       id: Int? = nil,
       systemName: String? = nil,
       systemShortName: String? = nil,
@@ -555,20 +551,20 @@ public struct OpenvgdbSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
   }
   
   /// Property based access to the ``RecordTypes-swift.struct``.
-  public static let recordTypes = RecordTypes()
+  static let recordTypes = RecordTypes()
   
   #if swift(>=5.7)
   /// All RecordTypes defined in the database.
-  public static let _allRecordTypes : [ any SQLRecord.Type ] = [ REGIONS.self, RELEASES.self, ROMs.self, SYSTEMS.self ]
+  static let _allRecordTypes : [ any SQLRecord.Type ] = [ REGIONS.self, RELEASES.self, ROMs.self, SYSTEMS.self ]
   #endif // swift(>=5.7)
   
   /// User version of the database (`PRAGMA user_version`).
-  public static let userVersion = 0
+  static let userVersion = 0
   
   /// Whether `INSERT … RETURNING` should be used (requires SQLite 3.35.0+).
-  public static let useInsertReturning = sqlite3_libversion_number() >= 3035000
+  static let useInsertReturning = sqlite3_libversion_number() >= 3035000
   
-  public static func withOptCString<R>(
+  static func withOptCString<R>(
     _ s: String?,
     _ body: ( UnsafePointer<CChar>? ) throws -> R
   ) rethrows -> R
@@ -578,7 +574,7 @@ public struct OpenvgdbSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
   }
   
   /// The `connectionHandler` is used to open SQLite database connections.
-  public var connectionHandler : SQLConnectionHandler
+  var connectionHandler : SQLConnectionHandler
   
   /**
    * Initialize ``OpenvgdbSchema``, read-only, with a `URL`.
@@ -599,8 +595,7 @@ public struct OpenvgdbSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
    * - Parameters:
    *   - url: A `URL` pointing to the database to be used.
    */
-  @inlinable
-  public init(url: URL)
+  init(url: URL)
   {
     self.connectionHandler = .simplePool(url: url, readOnly: true)
   }
@@ -625,8 +620,7 @@ public struct OpenvgdbSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
    *   - url: A `URL` pointing to the database to be used.
    *   - readOnly: For protocol conformance, only allowed value: `true`.
    */
-  @inlinable
-  public init(url: URL, readOnly: Bool = true)
+  init(url: URL, readOnly: Bool = true)
   {
     self.init(url: url)
   }
@@ -652,14 +646,13 @@ public struct OpenvgdbSchema : SQLDatabase, SQLDatabaseAsyncFetchOperations {
    * - Parameters:
    *   - connectionHandler: The `SQLConnectionHandler` to use w/ the database.
    */
-  @inlinable
-  public init(connectionHandler: SQLConnectionHandler)
+  init(connectionHandler: SQLConnectionHandler)
   {
     self.connectionHandler = connectionHandler
   }
 }
 
-public extension OpenvgdbSchema.REGIONS {
+extension OpenvgdbSchema.REGIONS {
   
   /**
    * Static type information for the ``REGIONS`` record (`REGIONS` SQL table).
@@ -670,55 +663,55 @@ public extension OpenvgdbSchema.REGIONS {
    */
   struct Schema : SQLKeyedTableSchema, SQLSwiftMatchableSchema {
     
-    public typealias PropertyIndices = ( idx_id: Int32, idx_regionName: Int32 )
-    public typealias RecordType = OpenvgdbSchema.REGIONS
-    public typealias MatchClosureType = ( OpenvgdbSchema.REGIONS ) -> Bool
+    typealias PropertyIndices = ( idx_id: Int32, idx_regionName: Int32 )
+    typealias RecordType = OpenvgdbSchema.REGIONS
+    typealias MatchClosureType = ( OpenvgdbSchema.REGIONS ) -> Bool
     
     /// The SQL table name associated with the ``REGIONS`` record.
-    public static let externalName = "REGIONS"
+    static let externalName = "REGIONS"
     
     /// The number of columns the `REGIONS` table has.
-    public static let columnCount : Int32 = 2
+    static let columnCount : Int32 = 2
     
     /// Information on the records primary key (``REGIONS/id``).
-    public static let primaryKeyColumn = MappedColumn<OpenvgdbSchema.REGIONS, Int?>(
+    static let primaryKeyColumn = MappedColumn<OpenvgdbSchema.REGIONS, Int?>(
       externalName: "regionID",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.REGIONS.id
     )
     
     /// SQL to `SELECT` all columns of the `REGIONS` table.
-    public static let select = #"SELECT "regionID", "regionName" FROM "REGIONS""#
+    static let select = #"SELECT "regionID", "regionName" FROM "REGIONS""#
     
     /// SQL fragment representing all columns.
-    public static let selectColumns = #""regionID", "regionName""#
+    static let selectColumns = #""regionID", "regionName""#
     
     /// Index positions of the properties in ``selectColumns``.
-    public static let selectColumnIndices : PropertyIndices = ( 0, 1 )
+    static let selectColumnIndices : PropertyIndices = ( 0, 1 )
     
     /// SQL to `SELECT` all columns of the `REGIONS` table using a Swift filter.
-    public static let matchSelect = #"SELECT "regionID", "regionName" FROM "REGIONS" WHERE rEGIONS_swift_match("regionID", "regionName") != 0"#
+    static let matchSelect = #"SELECT "regionID", "regionName" FROM "REGIONS" WHERE rEGIONS_swift_match("regionID", "regionName") != 0"#
     
     /// *Note*: Readonly database, do not use.
-    public static let update = ""
+    static let update = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let updateParameterIndices : PropertyIndices = ( -1, -1 )
+    static let updateParameterIndices : PropertyIndices = ( -1, -1 )
     
     /// *Note*: Readonly database, do not use.
-    public static let insert = ""
+    static let insert = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let insertReturning = ""
+    static let insertReturning = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let insertParameterIndices : PropertyIndices = ( -1, -1 )
+    static let insertParameterIndices : PropertyIndices = ( -1, -1 )
     
     /// *Note*: Readonly database, do not use.
-    public static let delete = ""
+    static let delete = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let deleteParameterIndices : PropertyIndices = ( -1, -1 )
+    static let deleteParameterIndices : PropertyIndices = ( -1, -1 )
     
     /**
      * Lookup property indices by column name in a statement handle.
@@ -735,8 +728,7 @@ public extension OpenvgdbSchema.REGIONS {
      *   - statement: A raw SQLite3 prepared statement handle.
      * - Returns: The positions of the properties in the prepared statement.
      */
-    @inlinable
-    public static func lookupColumnIndices(`in` statement: OpaquePointer!)
+    static func lookupColumnIndices(`in` statement: OpaquePointer!)
       -> PropertyIndices
     {
       var indices : PropertyIndices = ( -1, -1 )
@@ -764,9 +756,8 @@ public extension OpenvgdbSchema.REGIONS {
      *   - matcher: A pointer to the Swift closure used to filter the records.
      * - Returns: The result code of `sqlite3_create_function`, e.g. `SQLITE_OK`.
      */
-    @inlinable
     @discardableResult
-    public static func registerSwiftMatcher(
+    static func registerSwiftMatcher(
       `in` unsafeDatabaseHandle: OpaquePointer!,
       flags: Int32 = SQLITE_UTF8,
       matcher: UnsafeRawPointer
@@ -814,9 +805,8 @@ public extension OpenvgdbSchema.REGIONS {
      *   - flags: SQLite3 function registration flags, default: `SQLITE_UTF8`
      * - Returns: The result code of `sqlite3_create_function`, e.g. `SQLITE_OK`.
      */
-    @inlinable
     @discardableResult
-    public static func unregisterSwiftMatcher(
+    static func unregisterSwiftMatcher(
       `in` unsafeDatabaseHandle: OpaquePointer!,
       flags: Int32 = SQLITE_UTF8
     ) -> Int32
@@ -834,24 +824,24 @@ public extension OpenvgdbSchema.REGIONS {
     }
     
     /// Type information for property ``REGIONS/id`` (`regionID` column).
-    public let id = MappedColumn<OpenvgdbSchema.REGIONS, Int?>(
+    let id = MappedColumn<OpenvgdbSchema.REGIONS, Int?>(
       externalName: "regionID",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.REGIONS.id
     )
     
     /// Type information for property ``REGIONS/regionName`` (`regionName` column).
-    public let regionName = MappedColumn<OpenvgdbSchema.REGIONS, String?>(
+    let regionName = MappedColumn<OpenvgdbSchema.REGIONS, String?>(
       externalName: "regionName",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.REGIONS.regionName
     )
     
     #if swift(>=5.7)
-    public var _allColumns : [ any SQLColumn ] { [ id, regionName ] }
+    var _allColumns : [ any SQLColumn ] { [ id, regionName ] }
     #endif // swift(>=5.7)
     
-    public init()
+    init()
     {
     }
   }
@@ -888,7 +878,6 @@ public extension OpenvgdbSchema.REGIONS {
    *   - statement: Statement handle as returned by `sqlite3_prepare*` functions.
    *   - indices: Property bindings positions, defaults to `nil` (automatic lookup).
    */
-  @inlinable
   init(_ statement: OpaquePointer!, indices: Schema.PropertyIndices? = nil)
   {
     let indices = indices ?? Self.Schema.lookupColumnIndices(in: statement)
@@ -926,7 +915,6 @@ public extension OpenvgdbSchema.REGIONS {
    *   - execute: Closure executed with bindings applied, bindings _only_ valid within the call!
    * - Returns: Returns the result of the closure that is passed in.
    */
-  @inlinable
   @discardableResult
   func bind<R>(
     to statement: OpaquePointer!,
@@ -951,7 +939,7 @@ public extension OpenvgdbSchema.REGIONS {
   }
 }
 
-public extension OpenvgdbSchema.RELEASES {
+extension OpenvgdbSchema.RELEASES {
   
   /**
    * Static type information for the ``RELEASES`` record (`RELEASES` SQL table).
@@ -962,55 +950,55 @@ public extension OpenvgdbSchema.RELEASES {
    */
   struct Schema : SQLKeyedTableSchema, SQLSwiftMatchableSchema {
     
-    public typealias PropertyIndices = ( idx_id: Int32, idx_romID: Int32, idx_releaseTitleName: Int32, idx_regionLocalizedID: Int32, idx_tEMPregionLocalizedName: Int32, idx_tEMPsystemShortName: Int32, idx_tEMPsystemName: Int32, idx_releaseCoverFront: Int32, idx_releaseCoverBack: Int32, idx_releaseCoverCart: Int32, idx_releaseCoverDisc: Int32, idx_releaseDescription: Int32, idx_releaseDeveloper: Int32, idx_releasePublisher: Int32, idx_releaseGenre: Int32, idx_releaseDate: Int32, idx_releaseReferenceURL: Int32, idx_releaseReferenceImageURL: Int32 )
-    public typealias RecordType = OpenvgdbSchema.RELEASES
-    public typealias MatchClosureType = ( OpenvgdbSchema.RELEASES ) -> Bool
+    typealias PropertyIndices = ( idx_id: Int32, idx_romID: Int32, idx_releaseTitleName: Int32, idx_regionLocalizedID: Int32, idx_tEMPregionLocalizedName: Int32, idx_tEMPsystemShortName: Int32, idx_tEMPsystemName: Int32, idx_releaseCoverFront: Int32, idx_releaseCoverBack: Int32, idx_releaseCoverCart: Int32, idx_releaseCoverDisc: Int32, idx_releaseDescription: Int32, idx_releaseDeveloper: Int32, idx_releasePublisher: Int32, idx_releaseGenre: Int32, idx_releaseDate: Int32, idx_releaseReferenceURL: Int32, idx_releaseReferenceImageURL: Int32 )
+    typealias RecordType = OpenvgdbSchema.RELEASES
+    typealias MatchClosureType = ( OpenvgdbSchema.RELEASES ) -> Bool
     
     /// The SQL table name associated with the ``RELEASES`` record.
-    public static let externalName = "RELEASES"
+    static let externalName = "RELEASES"
     
     /// The number of columns the `RELEASES` table has.
-    public static let columnCount : Int32 = 18
+    static let columnCount : Int32 = 18
     
     /// Information on the records primary key (``RELEASES/id``).
-    public static let primaryKeyColumn = MappedColumn<OpenvgdbSchema.RELEASES, Int?>(
+    static let primaryKeyColumn = MappedColumn<OpenvgdbSchema.RELEASES, Int?>(
       externalName: "releaseID",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.RELEASES.id
     )
     
     /// SQL to `SELECT` all columns of the `RELEASES` table.
-    public static let select = #"SELECT "releaseID", "romID", "releaseTitleName", "regionLocalizedID", "TEMPregionLocalizedName", "TEMPsystemShortName", "TEMPsystemName", "releaseCoverFront", "releaseCoverBack", "releaseCoverCart", "releaseCoverDisc", "releaseDescription", "releaseDeveloper", "releasePublisher", "releaseGenre", "releaseDate", "releaseReferenceURL", "releaseReferenceImageURL" FROM "RELEASES""#
+    static let select = #"SELECT "releaseID", "romID", "releaseTitleName", "regionLocalizedID", "TEMPregionLocalizedName", "TEMPsystemShortName", "TEMPsystemName", "releaseCoverFront", "releaseCoverBack", "releaseCoverCart", "releaseCoverDisc", "releaseDescription", "releaseDeveloper", "releasePublisher", "releaseGenre", "releaseDate", "releaseReferenceURL", "releaseReferenceImageURL" FROM "RELEASES""#
     
     /// SQL fragment representing all columns.
-    public static let selectColumns = #""releaseID", "romID", "releaseTitleName", "regionLocalizedID", "TEMPregionLocalizedName", "TEMPsystemShortName", "TEMPsystemName", "releaseCoverFront", "releaseCoverBack", "releaseCoverCart", "releaseCoverDisc", "releaseDescription", "releaseDeveloper", "releasePublisher", "releaseGenre", "releaseDate", "releaseReferenceURL", "releaseReferenceImageURL""#
+    static let selectColumns = #""releaseID", "romID", "releaseTitleName", "regionLocalizedID", "TEMPregionLocalizedName", "TEMPsystemShortName", "TEMPsystemName", "releaseCoverFront", "releaseCoverBack", "releaseCoverCart", "releaseCoverDisc", "releaseDescription", "releaseDeveloper", "releasePublisher", "releaseGenre", "releaseDate", "releaseReferenceURL", "releaseReferenceImageURL""#
     
     /// Index positions of the properties in ``selectColumns``.
-    public static let selectColumnIndices : PropertyIndices = ( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 )
+    static let selectColumnIndices : PropertyIndices = ( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 )
     
     /// SQL to `SELECT` all columns of the `RELEASES` table using a Swift filter.
-    public static let matchSelect = #"SELECT "releaseID", "romID", "releaseTitleName", "regionLocalizedID", "TEMPregionLocalizedName", "TEMPsystemShortName", "TEMPsystemName", "releaseCoverFront", "releaseCoverBack", "releaseCoverCart", "releaseCoverDisc", "releaseDescription", "releaseDeveloper", "releasePublisher", "releaseGenre", "releaseDate", "releaseReferenceURL", "releaseReferenceImageURL" FROM "RELEASES" WHERE rELEASES_swift_match("releaseID", "romID", "releaseTitleName", "regionLocalizedID", "TEMPregionLocalizedName", "TEMPsystemShortName", "TEMPsystemName", "releaseCoverFront", "releaseCoverBack", "releaseCoverCart", "releaseCoverDisc", "releaseDescription", "releaseDeveloper", "releasePublisher", "releaseGenre", "releaseDate", "releaseReferenceURL", "releaseReferenceImageURL") != 0"#
+    static let matchSelect = #"SELECT "releaseID", "romID", "releaseTitleName", "regionLocalizedID", "TEMPregionLocalizedName", "TEMPsystemShortName", "TEMPsystemName", "releaseCoverFront", "releaseCoverBack", "releaseCoverCart", "releaseCoverDisc", "releaseDescription", "releaseDeveloper", "releasePublisher", "releaseGenre", "releaseDate", "releaseReferenceURL", "releaseReferenceImageURL" FROM "RELEASES" WHERE rELEASES_swift_match("releaseID", "romID", "releaseTitleName", "regionLocalizedID", "TEMPregionLocalizedName", "TEMPsystemShortName", "TEMPsystemName", "releaseCoverFront", "releaseCoverBack", "releaseCoverCart", "releaseCoverDisc", "releaseDescription", "releaseDeveloper", "releasePublisher", "releaseGenre", "releaseDate", "releaseReferenceURL", "releaseReferenceImageURL") != 0"#
     
     /// *Note*: Readonly database, do not use.
-    public static let update = ""
+    static let update = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let updateParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 )
+    static let updateParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 )
     
     /// *Note*: Readonly database, do not use.
-    public static let insert = ""
+    static let insert = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let insertReturning = ""
+    static let insertReturning = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let insertParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 )
+    static let insertParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 )
     
     /// *Note*: Readonly database, do not use.
-    public static let delete = ""
+    static let delete = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let deleteParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 )
+    static let deleteParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 )
     
     /**
      * Lookup property indices by column name in a statement handle.
@@ -1027,8 +1015,7 @@ public extension OpenvgdbSchema.RELEASES {
      *   - statement: A raw SQLite3 prepared statement handle.
      * - Returns: The positions of the properties in the prepared statement.
      */
-    @inlinable
-    public static func lookupColumnIndices(`in` statement: OpaquePointer!)
+    static func lookupColumnIndices(`in` statement: OpaquePointer!)
       -> PropertyIndices
     {
       var indices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 )
@@ -1104,9 +1091,8 @@ public extension OpenvgdbSchema.RELEASES {
      *   - matcher: A pointer to the Swift closure used to filter the records.
      * - Returns: The result code of `sqlite3_create_function`, e.g. `SQLITE_OK`.
      */
-    @inlinable
     @discardableResult
-    public static func registerSwiftMatcher(
+    static func registerSwiftMatcher(
       `in` unsafeDatabaseHandle: OpaquePointer!,
       flags: Int32 = SQLITE_UTF8,
       matcher: UnsafeRawPointer
@@ -1170,9 +1156,8 @@ public extension OpenvgdbSchema.RELEASES {
      *   - flags: SQLite3 function registration flags, default: `SQLITE_UTF8`
      * - Returns: The result code of `sqlite3_create_function`, e.g. `SQLITE_OK`.
      */
-    @inlinable
     @discardableResult
-    public static func unregisterSwiftMatcher(
+    static func unregisterSwiftMatcher(
       `in` unsafeDatabaseHandle: OpaquePointer!,
       flags: Int32 = SQLITE_UTF8
     ) -> Int32
@@ -1190,136 +1175,136 @@ public extension OpenvgdbSchema.RELEASES {
     }
     
     /// Type information for property ``RELEASES/id`` (`releaseID` column).
-    public let id = MappedColumn<OpenvgdbSchema.RELEASES, Int?>(
+    let id = MappedColumn<OpenvgdbSchema.RELEASES, Int?>(
       externalName: "releaseID",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.RELEASES.id
     )
     
     /// Type information for property ``RELEASES/romID`` (`romID` column).
-    public let romID = MappedColumn<OpenvgdbSchema.RELEASES, Int?>(
+    let romID = MappedColumn<OpenvgdbSchema.RELEASES, Int?>(
       externalName: "romID",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.RELEASES.romID
     )
     
     /// Type information for property ``RELEASES/releaseTitleName`` (`releaseTitleName` column).
-    public let releaseTitleName = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
+    let releaseTitleName = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
       externalName: "releaseTitleName",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.RELEASES.releaseTitleName
     )
     
     /// Type information for property ``RELEASES/regionLocalizedID`` (`regionLocalizedID` column).
-    public let regionLocalizedID = MappedColumn<OpenvgdbSchema.RELEASES, Int?>(
+    let regionLocalizedID = MappedColumn<OpenvgdbSchema.RELEASES, Int?>(
       externalName: "regionLocalizedID",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.RELEASES.regionLocalizedID
     )
     
     /// Type information for property ``RELEASES/tEMPregionLocalizedName`` (`TEMPregionLocalizedName` column).
-    public let tEMPregionLocalizedName = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
+    let tEMPregionLocalizedName = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
       externalName: "TEMPregionLocalizedName",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.RELEASES.tEMPregionLocalizedName
     )
     
     /// Type information for property ``RELEASES/tEMPsystemShortName`` (`TEMPsystemShortName` column).
-    public let tEMPsystemShortName = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
+    let tEMPsystemShortName = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
       externalName: "TEMPsystemShortName",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.RELEASES.tEMPsystemShortName
     )
     
     /// Type information for property ``RELEASES/tEMPsystemName`` (`TEMPsystemName` column).
-    public let tEMPsystemName = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
+    let tEMPsystemName = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
       externalName: "TEMPsystemName",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.RELEASES.tEMPsystemName
     )
     
     /// Type information for property ``RELEASES/releaseCoverFront`` (`releaseCoverFront` column).
-    public let releaseCoverFront = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
+    let releaseCoverFront = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
       externalName: "releaseCoverFront",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.RELEASES.releaseCoverFront
     )
     
     /// Type information for property ``RELEASES/releaseCoverBack`` (`releaseCoverBack` column).
-    public let releaseCoverBack = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
+    let releaseCoverBack = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
       externalName: "releaseCoverBack",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.RELEASES.releaseCoverBack
     )
     
     /// Type information for property ``RELEASES/releaseCoverCart`` (`releaseCoverCart` column).
-    public let releaseCoverCart = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
+    let releaseCoverCart = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
       externalName: "releaseCoverCart",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.RELEASES.releaseCoverCart
     )
     
     /// Type information for property ``RELEASES/releaseCoverDisc`` (`releaseCoverDisc` column).
-    public let releaseCoverDisc = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
+    let releaseCoverDisc = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
       externalName: "releaseCoverDisc",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.RELEASES.releaseCoverDisc
     )
     
     /// Type information for property ``RELEASES/releaseDescription`` (`releaseDescription` column).
-    public let releaseDescription = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
+    let releaseDescription = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
       externalName: "releaseDescription",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.RELEASES.releaseDescription
     )
     
     /// Type information for property ``RELEASES/releaseDeveloper`` (`releaseDeveloper` column).
-    public let releaseDeveloper = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
+    let releaseDeveloper = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
       externalName: "releaseDeveloper",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.RELEASES.releaseDeveloper
     )
     
     /// Type information for property ``RELEASES/releasePublisher`` (`releasePublisher` column).
-    public let releasePublisher = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
+    let releasePublisher = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
       externalName: "releasePublisher",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.RELEASES.releasePublisher
     )
     
     /// Type information for property ``RELEASES/releaseGenre`` (`releaseGenre` column).
-    public let releaseGenre = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
+    let releaseGenre = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
       externalName: "releaseGenre",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.RELEASES.releaseGenre
     )
     
     /// Type information for property ``RELEASES/releaseDate`` (`releaseDate` column).
-    public let releaseDate = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
+    let releaseDate = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
       externalName: "releaseDate",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.RELEASES.releaseDate
     )
     
     /// Type information for property ``RELEASES/releaseReferenceURL`` (`releaseReferenceURL` column).
-    public let releaseReferenceURL = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
+    let releaseReferenceURL = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
       externalName: "releaseReferenceURL",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.RELEASES.releaseReferenceURL
     )
     
     /// Type information for property ``RELEASES/releaseReferenceImageURL`` (`releaseReferenceImageURL` column).
-    public let releaseReferenceImageURL = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
+    let releaseReferenceImageURL = MappedColumn<OpenvgdbSchema.RELEASES, String?>(
       externalName: "releaseReferenceImageURL",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.RELEASES.releaseReferenceImageURL
     )
     
     #if swift(>=5.7)
-    public var _allColumns : [ any SQLColumn ] { [ id, romID, releaseTitleName, regionLocalizedID, tEMPregionLocalizedName, tEMPsystemShortName, tEMPsystemName, releaseCoverFront, releaseCoverBack, releaseCoverCart, releaseCoverDisc, releaseDescription, releaseDeveloper, releasePublisher, releaseGenre, releaseDate, releaseReferenceURL, releaseReferenceImageURL ] }
+    var _allColumns : [ any SQLColumn ] { [ id, romID, releaseTitleName, regionLocalizedID, tEMPregionLocalizedName, tEMPsystemShortName, tEMPsystemName, releaseCoverFront, releaseCoverBack, releaseCoverCart, releaseCoverDisc, releaseDescription, releaseDeveloper, releasePublisher, releaseGenre, releaseDate, releaseReferenceURL, releaseReferenceImageURL ] }
     #endif // swift(>=5.7)
     
-    public init()
+    init()
     {
     }
   }
@@ -1356,7 +1341,6 @@ public extension OpenvgdbSchema.RELEASES {
    *   - statement: Statement handle as returned by `sqlite3_prepare*` functions.
    *   - indices: Property bindings positions, defaults to `nil` (automatic lookup).
    */
-  @inlinable
   init(_ statement: OpaquePointer!, indices: Schema.PropertyIndices? = nil)
   {
     let indices = indices ?? Self.Schema.lookupColumnIndices(in: statement)
@@ -1410,7 +1394,6 @@ public extension OpenvgdbSchema.RELEASES {
    *   - execute: Closure executed with bindings applied, bindings _only_ valid within the call!
    * - Returns: Returns the result of the closure that is passed in.
    */
-  @inlinable
   @discardableResult
   func bind<R>(
     to statement: OpaquePointer!,
@@ -1525,7 +1508,7 @@ public extension OpenvgdbSchema.RELEASES {
   }
 }
 
-public extension OpenvgdbSchema.ROMs {
+extension OpenvgdbSchema.ROMs {
   
   /**
    * Static type information for the ``ROMs`` record (`ROMs` SQL table).
@@ -1536,55 +1519,55 @@ public extension OpenvgdbSchema.ROMs {
    */
   struct Schema : SQLKeyedTableSchema, SQLSwiftMatchableSchema {
     
-    public typealias PropertyIndices = ( idx_id: Int32, idx_systemID: Int32, idx_regionID: Int32, idx_romHashCRC: Int32, idx_romHashMD5: Int32, idx_romHashSHA1: Int32, idx_romSize: Int32, idx_romFileName: Int32, idx_romExtensionlessFileName: Int32, idx_romParent: Int32, idx_romSerial: Int32, idx_romHeader: Int32, idx_romLanguage: Int32, idx_tEMPromRegion: Int32, idx_romDumpSource: Int32 )
-    public typealias RecordType = OpenvgdbSchema.ROMs
-    public typealias MatchClosureType = ( OpenvgdbSchema.ROMs ) -> Bool
+    typealias PropertyIndices = ( idx_id: Int32, idx_systemID: Int32, idx_regionID: Int32, idx_romHashCRC: Int32, idx_romHashMD5: Int32, idx_romHashSHA1: Int32, idx_romSize: Int32, idx_romFileName: Int32, idx_romExtensionlessFileName: Int32, idx_romParent: Int32, idx_romSerial: Int32, idx_romHeader: Int32, idx_romLanguage: Int32, idx_tEMPromRegion: Int32, idx_romDumpSource: Int32 )
+    typealias RecordType = OpenvgdbSchema.ROMs
+    typealias MatchClosureType = ( OpenvgdbSchema.ROMs ) -> Bool
     
     /// The SQL table name associated with the ``ROMs`` record.
-    public static let externalName = "ROMs"
+    static let externalName = "ROMs"
     
     /// The number of columns the `ROMs` table has.
-    public static let columnCount : Int32 = 15
+    static let columnCount : Int32 = 15
     
     /// Information on the records primary key (``ROMs/id``).
-    public static let primaryKeyColumn = MappedColumn<OpenvgdbSchema.ROMs, Int?>(
+    static let primaryKeyColumn = MappedColumn<OpenvgdbSchema.ROMs, Int?>(
       externalName: "romID",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.ROMs.id
     )
     
     /// SQL to `SELECT` all columns of the `ROMs` table.
-    public static let select = #"SELECT "romID", "systemID", "regionID", "romHashCRC", "romHashMD5", "romHashSHA1", "romSize", "romFileName", "romExtensionlessFileName", "romParent", "romSerial", "romHeader", "romLanguage", "TEMPromRegion", "romDumpSource" FROM "ROMs""#
+    static let select = #"SELECT "romID", "systemID", "regionID", "romHashCRC", "romHashMD5", "romHashSHA1", "romSize", "romFileName", "romExtensionlessFileName", "romParent", "romSerial", "romHeader", "romLanguage", "TEMPromRegion", "romDumpSource" FROM "ROMs""#
     
     /// SQL fragment representing all columns.
-    public static let selectColumns = #""romID", "systemID", "regionID", "romHashCRC", "romHashMD5", "romHashSHA1", "romSize", "romFileName", "romExtensionlessFileName", "romParent", "romSerial", "romHeader", "romLanguage", "TEMPromRegion", "romDumpSource""#
+    static let selectColumns = #""romID", "systemID", "regionID", "romHashCRC", "romHashMD5", "romHashSHA1", "romSize", "romFileName", "romExtensionlessFileName", "romParent", "romSerial", "romHeader", "romLanguage", "TEMPromRegion", "romDumpSource""#
     
     /// Index positions of the properties in ``selectColumns``.
-    public static let selectColumnIndices : PropertyIndices = ( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 )
+    static let selectColumnIndices : PropertyIndices = ( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 )
     
     /// SQL to `SELECT` all columns of the `ROMs` table using a Swift filter.
-    public static let matchSelect = #"SELECT "romID", "systemID", "regionID", "romHashCRC", "romHashMD5", "romHashSHA1", "romSize", "romFileName", "romExtensionlessFileName", "romParent", "romSerial", "romHeader", "romLanguage", "TEMPromRegion", "romDumpSource" FROM "ROMs" WHERE rOMs_swift_match("romID", "systemID", "regionID", "romHashCRC", "romHashMD5", "romHashSHA1", "romSize", "romFileName", "romExtensionlessFileName", "romParent", "romSerial", "romHeader", "romLanguage", "TEMPromRegion", "romDumpSource") != 0"#
+    static let matchSelect = #"SELECT "romID", "systemID", "regionID", "romHashCRC", "romHashMD5", "romHashSHA1", "romSize", "romFileName", "romExtensionlessFileName", "romParent", "romSerial", "romHeader", "romLanguage", "TEMPromRegion", "romDumpSource" FROM "ROMs" WHERE rOMs_swift_match("romID", "systemID", "regionID", "romHashCRC", "romHashMD5", "romHashSHA1", "romSize", "romFileName", "romExtensionlessFileName", "romParent", "romSerial", "romHeader", "romLanguage", "TEMPromRegion", "romDumpSource") != 0"#
     
     /// *Note*: Readonly database, do not use.
-    public static let update = ""
+    static let update = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let updateParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 )
+    static let updateParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 )
     
     /// *Note*: Readonly database, do not use.
-    public static let insert = ""
+    static let insert = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let insertReturning = ""
+    static let insertReturning = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let insertParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 )
+    static let insertParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 )
     
     /// *Note*: Readonly database, do not use.
-    public static let delete = ""
+    static let delete = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let deleteParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 )
+    static let deleteParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 )
     
     /**
      * Lookup property indices by column name in a statement handle.
@@ -1601,8 +1584,7 @@ public extension OpenvgdbSchema.ROMs {
      *   - statement: A raw SQLite3 prepared statement handle.
      * - Returns: The positions of the properties in the prepared statement.
      */
-    @inlinable
-    public static func lookupColumnIndices(`in` statement: OpaquePointer!)
+    static func lookupColumnIndices(`in` statement: OpaquePointer!)
       -> PropertyIndices
     {
       var indices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 )
@@ -1669,9 +1651,8 @@ public extension OpenvgdbSchema.ROMs {
      *   - matcher: A pointer to the Swift closure used to filter the records.
      * - Returns: The result code of `sqlite3_create_function`, e.g. `SQLITE_OK`.
      */
-    @inlinable
     @discardableResult
-    public static func registerSwiftMatcher(
+    static func registerSwiftMatcher(
       `in` unsafeDatabaseHandle: OpaquePointer!,
       flags: Int32 = SQLITE_UTF8,
       matcher: UnsafeRawPointer
@@ -1732,9 +1713,8 @@ public extension OpenvgdbSchema.ROMs {
      *   - flags: SQLite3 function registration flags, default: `SQLITE_UTF8`
      * - Returns: The result code of `sqlite3_create_function`, e.g. `SQLITE_OK`.
      */
-    @inlinable
     @discardableResult
-    public static func unregisterSwiftMatcher(
+    static func unregisterSwiftMatcher(
       `in` unsafeDatabaseHandle: OpaquePointer!,
       flags: Int32 = SQLITE_UTF8
     ) -> Int32
@@ -1752,115 +1732,115 @@ public extension OpenvgdbSchema.ROMs {
     }
     
     /// Type information for property ``ROMs/id`` (`romID` column).
-    public let id = MappedColumn<OpenvgdbSchema.ROMs, Int?>(
+    let id = MappedColumn<OpenvgdbSchema.ROMs, Int?>(
       externalName: "romID",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.ROMs.id
     )
     
     /// Type information for property ``ROMs/systemID`` (`systemID` column).
-    public let systemID = MappedColumn<OpenvgdbSchema.ROMs, Int?>(
+    let systemID = MappedColumn<OpenvgdbSchema.ROMs, Int?>(
       externalName: "systemID",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.ROMs.systemID
     )
     
     /// Type information for property ``ROMs/regionID`` (`regionID` column).
-    public let regionID = MappedColumn<OpenvgdbSchema.ROMs, Int?>(
+    let regionID = MappedColumn<OpenvgdbSchema.ROMs, Int?>(
       externalName: "regionID",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.ROMs.regionID
     )
     
     /// Type information for property ``ROMs/romHashCRC`` (`romHashCRC` column).
-    public let romHashCRC = MappedColumn<OpenvgdbSchema.ROMs, String?>(
+    let romHashCRC = MappedColumn<OpenvgdbSchema.ROMs, String?>(
       externalName: "romHashCRC",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.ROMs.romHashCRC
     )
     
     /// Type information for property ``ROMs/romHashMD5`` (`romHashMD5` column).
-    public let romHashMD5 = MappedColumn<OpenvgdbSchema.ROMs, String?>(
+    let romHashMD5 = MappedColumn<OpenvgdbSchema.ROMs, String?>(
       externalName: "romHashMD5",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.ROMs.romHashMD5
     )
     
     /// Type information for property ``ROMs/romHashSHA1`` (`romHashSHA1` column).
-    public let romHashSHA1 = MappedColumn<OpenvgdbSchema.ROMs, String?>(
+    let romHashSHA1 = MappedColumn<OpenvgdbSchema.ROMs, String?>(
       externalName: "romHashSHA1",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.ROMs.romHashSHA1
     )
     
     /// Type information for property ``ROMs/romSize`` (`romSize` column).
-    public let romSize = MappedColumn<OpenvgdbSchema.ROMs, Int?>(
+    let romSize = MappedColumn<OpenvgdbSchema.ROMs, Int?>(
       externalName: "romSize",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.ROMs.romSize
     )
     
     /// Type information for property ``ROMs/romFileName`` (`romFileName` column).
-    public let romFileName = MappedColumn<OpenvgdbSchema.ROMs, String?>(
+    let romFileName = MappedColumn<OpenvgdbSchema.ROMs, String?>(
       externalName: "romFileName",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.ROMs.romFileName
     )
     
     /// Type information for property ``ROMs/romExtensionlessFileName`` (`romExtensionlessFileName` column).
-    public let romExtensionlessFileName = MappedColumn<OpenvgdbSchema.ROMs, String?>(
+    let romExtensionlessFileName = MappedColumn<OpenvgdbSchema.ROMs, String?>(
       externalName: "romExtensionlessFileName",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.ROMs.romExtensionlessFileName
     )
     
     /// Type information for property ``ROMs/romParent`` (`romParent` column).
-    public let romParent = MappedColumn<OpenvgdbSchema.ROMs, String?>(
+    let romParent = MappedColumn<OpenvgdbSchema.ROMs, String?>(
       externalName: "romParent",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.ROMs.romParent
     )
     
     /// Type information for property ``ROMs/romSerial`` (`romSerial` column).
-    public let romSerial = MappedColumn<OpenvgdbSchema.ROMs, String?>(
+    let romSerial = MappedColumn<OpenvgdbSchema.ROMs, String?>(
       externalName: "romSerial",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.ROMs.romSerial
     )
     
     /// Type information for property ``ROMs/romHeader`` (`romHeader` column).
-    public let romHeader = MappedColumn<OpenvgdbSchema.ROMs, String?>(
+    let romHeader = MappedColumn<OpenvgdbSchema.ROMs, String?>(
       externalName: "romHeader",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.ROMs.romHeader
     )
     
     /// Type information for property ``ROMs/romLanguage`` (`romLanguage` column).
-    public let romLanguage = MappedColumn<OpenvgdbSchema.ROMs, String?>(
+    let romLanguage = MappedColumn<OpenvgdbSchema.ROMs, String?>(
       externalName: "romLanguage",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.ROMs.romLanguage
     )
     
     /// Type information for property ``ROMs/tEMPromRegion`` (`TEMPromRegion` column).
-    public let tEMPromRegion = MappedColumn<OpenvgdbSchema.ROMs, String?>(
+    let tEMPromRegion = MappedColumn<OpenvgdbSchema.ROMs, String?>(
       externalName: "TEMPromRegion",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.ROMs.tEMPromRegion
     )
     
     /// Type information for property ``ROMs/romDumpSource`` (`romDumpSource` column).
-    public let romDumpSource = MappedColumn<OpenvgdbSchema.ROMs, String?>(
+    let romDumpSource = MappedColumn<OpenvgdbSchema.ROMs, String?>(
       externalName: "romDumpSource",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.ROMs.romDumpSource
     )
     
     #if swift(>=5.7)
-    public var _allColumns : [ any SQLColumn ] { [ id, systemID, regionID, romHashCRC, romHashMD5, romHashSHA1, romSize, romFileName, romExtensionlessFileName, romParent, romSerial, romHeader, romLanguage, tEMPromRegion, romDumpSource ] }
+    var _allColumns : [ any SQLColumn ] { [ id, systemID, regionID, romHashCRC, romHashMD5, romHashSHA1, romSize, romFileName, romExtensionlessFileName, romParent, romSerial, romHeader, romLanguage, tEMPromRegion, romDumpSource ] }
     #endif // swift(>=5.7)
     
-    public init()
+    init()
     {
     }
   }
@@ -1897,7 +1877,6 @@ public extension OpenvgdbSchema.ROMs {
    *   - statement: Statement handle as returned by `sqlite3_prepare*` functions.
    *   - indices: Property bindings positions, defaults to `nil` (automatic lookup).
    */
-  @inlinable
   init(_ statement: OpaquePointer!, indices: Schema.PropertyIndices? = nil)
   {
     let indices = indices ?? Self.Schema.lookupColumnIndices(in: statement)
@@ -1948,7 +1927,6 @@ public extension OpenvgdbSchema.ROMs {
    *   - execute: Closure executed with bindings applied, bindings _only_ valid within the call!
    * - Returns: Returns the result of the closure that is passed in.
    */
-  @inlinable
   @discardableResult
   func bind<R>(
     to statement: OpaquePointer!,
@@ -2047,7 +2025,7 @@ public extension OpenvgdbSchema.ROMs {
   }
 }
 
-public extension OpenvgdbSchema.SYSTEMS {
+extension OpenvgdbSchema.SYSTEMS {
   
   /**
    * Static type information for the ``SYSTEMS`` record (`SYSTEMS` SQL table).
@@ -2058,55 +2036,55 @@ public extension OpenvgdbSchema.SYSTEMS {
    */
   struct Schema : SQLKeyedTableSchema, SQLSwiftMatchableSchema {
     
-    public typealias PropertyIndices = ( idx_id: Int32, idx_systemName: Int32, idx_systemShortName: Int32, idx_systemHeaderSizeBytes: Int32, idx_systemHashless: Int32, idx_systemHeader: Int32, idx_systemSerial: Int32, idx_systemOEID: Int32 )
-    public typealias RecordType = OpenvgdbSchema.SYSTEMS
-    public typealias MatchClosureType = ( OpenvgdbSchema.SYSTEMS ) -> Bool
+    typealias PropertyIndices = ( idx_id: Int32, idx_systemName: Int32, idx_systemShortName: Int32, idx_systemHeaderSizeBytes: Int32, idx_systemHashless: Int32, idx_systemHeader: Int32, idx_systemSerial: Int32, idx_systemOEID: Int32 )
+    typealias RecordType = OpenvgdbSchema.SYSTEMS
+    typealias MatchClosureType = ( OpenvgdbSchema.SYSTEMS ) -> Bool
     
     /// The SQL table name associated with the ``SYSTEMS`` record.
-    public static let externalName = "SYSTEMS"
+    static let externalName = "SYSTEMS"
     
     /// The number of columns the `SYSTEMS` table has.
-    public static let columnCount : Int32 = 8
+    static let columnCount : Int32 = 8
     
     /// Information on the records primary key (``SYSTEMS/id``).
-    public static let primaryKeyColumn = MappedColumn<OpenvgdbSchema.SYSTEMS, Int?>(
+    static let primaryKeyColumn = MappedColumn<OpenvgdbSchema.SYSTEMS, Int?>(
       externalName: "systemID",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.SYSTEMS.id
     )
     
     /// SQL to `SELECT` all columns of the `SYSTEMS` table.
-    public static let select = #"SELECT "systemID", "systemName", "systemShortName", "systemHeaderSizeBytes", "systemHashless", "systemHeader", "systemSerial", "systemOEID" FROM "SYSTEMS""#
+    static let select = #"SELECT "systemID", "systemName", "systemShortName", "systemHeaderSizeBytes", "systemHashless", "systemHeader", "systemSerial", "systemOEID" FROM "SYSTEMS""#
     
     /// SQL fragment representing all columns.
-    public static let selectColumns = #""systemID", "systemName", "systemShortName", "systemHeaderSizeBytes", "systemHashless", "systemHeader", "systemSerial", "systemOEID""#
+    static let selectColumns = #""systemID", "systemName", "systemShortName", "systemHeaderSizeBytes", "systemHashless", "systemHeader", "systemSerial", "systemOEID""#
     
     /// Index positions of the properties in ``selectColumns``.
-    public static let selectColumnIndices : PropertyIndices = ( 0, 1, 2, 3, 4, 5, 6, 7 )
+    static let selectColumnIndices : PropertyIndices = ( 0, 1, 2, 3, 4, 5, 6, 7 )
     
     /// SQL to `SELECT` all columns of the `SYSTEMS` table using a Swift filter.
-    public static let matchSelect = #"SELECT "systemID", "systemName", "systemShortName", "systemHeaderSizeBytes", "systemHashless", "systemHeader", "systemSerial", "systemOEID" FROM "SYSTEMS" WHERE sYSTEMS_swift_match("systemID", "systemName", "systemShortName", "systemHeaderSizeBytes", "systemHashless", "systemHeader", "systemSerial", "systemOEID") != 0"#
+    static let matchSelect = #"SELECT "systemID", "systemName", "systemShortName", "systemHeaderSizeBytes", "systemHashless", "systemHeader", "systemSerial", "systemOEID" FROM "SYSTEMS" WHERE sYSTEMS_swift_match("systemID", "systemName", "systemShortName", "systemHeaderSizeBytes", "systemHashless", "systemHeader", "systemSerial", "systemOEID") != 0"#
     
     /// *Note*: Readonly database, do not use.
-    public static let update = ""
+    static let update = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let updateParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1, -1 )
+    static let updateParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1, -1 )
     
     /// *Note*: Readonly database, do not use.
-    public static let insert = ""
+    static let insert = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let insertReturning = ""
+    static let insertReturning = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let insertParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1, -1 )
+    static let insertParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1, -1 )
     
     /// *Note*: Readonly database, do not use.
-    public static let delete = ""
+    static let delete = ""
     
     /// *Note*: Readonly database, do not use.
-    public static let deleteParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1, -1 )
+    static let deleteParameterIndices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1, -1 )
     
     /**
      * Lookup property indices by column name in a statement handle.
@@ -2123,8 +2101,7 @@ public extension OpenvgdbSchema.SYSTEMS {
      *   - statement: A raw SQLite3 prepared statement handle.
      * - Returns: The positions of the properties in the prepared statement.
      */
-    @inlinable
-    public static func lookupColumnIndices(`in` statement: OpaquePointer!)
+    static func lookupColumnIndices(`in` statement: OpaquePointer!)
       -> PropertyIndices
     {
       var indices : PropertyIndices = ( -1, -1, -1, -1, -1, -1, -1, -1 )
@@ -2170,9 +2147,8 @@ public extension OpenvgdbSchema.SYSTEMS {
      *   - matcher: A pointer to the Swift closure used to filter the records.
      * - Returns: The result code of `sqlite3_create_function`, e.g. `SQLITE_OK`.
      */
-    @inlinable
     @discardableResult
-    public static func registerSwiftMatcher(
+    static func registerSwiftMatcher(
       `in` unsafeDatabaseHandle: OpaquePointer!,
       flags: Int32 = SQLITE_UTF8,
       matcher: UnsafeRawPointer
@@ -2226,9 +2202,8 @@ public extension OpenvgdbSchema.SYSTEMS {
      *   - flags: SQLite3 function registration flags, default: `SQLITE_UTF8`
      * - Returns: The result code of `sqlite3_create_function`, e.g. `SQLITE_OK`.
      */
-    @inlinable
     @discardableResult
-    public static func unregisterSwiftMatcher(
+    static func unregisterSwiftMatcher(
       `in` unsafeDatabaseHandle: OpaquePointer!,
       flags: Int32 = SQLITE_UTF8
     ) -> Int32
@@ -2246,66 +2221,66 @@ public extension OpenvgdbSchema.SYSTEMS {
     }
     
     /// Type information for property ``SYSTEMS/id`` (`systemID` column).
-    public let id = MappedColumn<OpenvgdbSchema.SYSTEMS, Int?>(
+    let id = MappedColumn<OpenvgdbSchema.SYSTEMS, Int?>(
       externalName: "systemID",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.SYSTEMS.id
     )
     
     /// Type information for property ``SYSTEMS/systemName`` (`systemName` column).
-    public let systemName = MappedColumn<OpenvgdbSchema.SYSTEMS, String?>(
+    let systemName = MappedColumn<OpenvgdbSchema.SYSTEMS, String?>(
       externalName: "systemName",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.SYSTEMS.systemName
     )
     
     /// Type information for property ``SYSTEMS/systemShortName`` (`systemShortName` column).
-    public let systemShortName = MappedColumn<OpenvgdbSchema.SYSTEMS, String?>(
+    let systemShortName = MappedColumn<OpenvgdbSchema.SYSTEMS, String?>(
       externalName: "systemShortName",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.SYSTEMS.systemShortName
     )
     
     /// Type information for property ``SYSTEMS/systemHeaderSizeBytes`` (`systemHeaderSizeBytes` column).
-    public let systemHeaderSizeBytes = MappedColumn<OpenvgdbSchema.SYSTEMS, Int?>(
+    let systemHeaderSizeBytes = MappedColumn<OpenvgdbSchema.SYSTEMS, Int?>(
       externalName: "systemHeaderSizeBytes",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.SYSTEMS.systemHeaderSizeBytes
     )
     
     /// Type information for property ``SYSTEMS/systemHashless`` (`systemHashless` column).
-    public let systemHashless = MappedColumn<OpenvgdbSchema.SYSTEMS, Int?>(
+    let systemHashless = MappedColumn<OpenvgdbSchema.SYSTEMS, Int?>(
       externalName: "systemHashless",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.SYSTEMS.systemHashless
     )
     
     /// Type information for property ``SYSTEMS/systemHeader`` (`systemHeader` column).
-    public let systemHeader = MappedColumn<OpenvgdbSchema.SYSTEMS, Int?>(
+    let systemHeader = MappedColumn<OpenvgdbSchema.SYSTEMS, Int?>(
       externalName: "systemHeader",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.SYSTEMS.systemHeader
     )
     
     /// Type information for property ``SYSTEMS/systemSerial`` (`systemSerial` column).
-    public let systemSerial = MappedColumn<OpenvgdbSchema.SYSTEMS, String?>(
+    let systemSerial = MappedColumn<OpenvgdbSchema.SYSTEMS, String?>(
       externalName: "systemSerial",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.SYSTEMS.systemSerial
     )
     
     /// Type information for property ``SYSTEMS/systemOEID`` (`systemOEID` column).
-    public let systemOEID = MappedColumn<OpenvgdbSchema.SYSTEMS, String?>(
+    let systemOEID = MappedColumn<OpenvgdbSchema.SYSTEMS, String?>(
       externalName: "systemOEID",
       defaultValue: nil,
       keyPath: \OpenvgdbSchema.SYSTEMS.systemOEID
     )
     
     #if swift(>=5.7)
-    public var _allColumns : [ any SQLColumn ] { [ id, systemName, systemShortName, systemHeaderSizeBytes, systemHashless, systemHeader, systemSerial, systemOEID ] }
+    var _allColumns : [ any SQLColumn ] { [ id, systemName, systemShortName, systemHeaderSizeBytes, systemHashless, systemHeader, systemSerial, systemOEID ] }
     #endif // swift(>=5.7)
     
-    public init()
+    init()
     {
     }
   }
@@ -2342,7 +2317,6 @@ public extension OpenvgdbSchema.SYSTEMS {
    *   - statement: Statement handle as returned by `sqlite3_prepare*` functions.
    *   - indices: Property bindings positions, defaults to `nil` (automatic lookup).
    */
-  @inlinable
   init(_ statement: OpaquePointer!, indices: Schema.PropertyIndices? = nil)
   {
     let indices = indices ?? Self.Schema.lookupColumnIndices(in: statement)
@@ -2386,7 +2360,6 @@ public extension OpenvgdbSchema.SYSTEMS {
    *   - execute: Closure executed with bindings applied, bindings _only_ valid within the call!
    * - Returns: Returns the result of the closure that is passed in.
    */
-  @inlinable
   @discardableResult
   func bind<R>(
     to statement: OpaquePointer!,

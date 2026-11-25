@@ -13,7 +13,7 @@ import Foundation
 import PVSystems
 import PVLookupTypes
 import PVLookupTestSupport
-import PVSQLiteDatabase
+@_spi(PVLookup) import PVSQLiteDatabase
 
 // MARK: - Platform Constants
 private extension LibretroDBTests {

@@ -8,15 +8,15 @@
 import Foundation
 import SQLite
 
-package typealias SQLQueryDict = [String: AnyObject]
-package typealias SQLQueryResponse = [SQLQueryDict]
-package protocol SQLQueryable {
+@_spi(PVLookup) public typealias SQLQueryDict = [String: AnyObject]
+@_spi(PVLookup) public typealias SQLQueryResponse = [SQLQueryDict]
+@_spi(PVLookup) public protocol SQLQueryable {
     func execute(query: String, parameters: [Any]?) throws -> SQLQueryResponse
 }
 
 public struct PVSQLiteDatabase: @unchecked Sendable {
-    package let url: URL
-    package let connection: SQLite.Connection
+    @_spi(PVLookup) public let url: URL
+    @_spi(PVLookup) public let connection: SQLite.Connection
 
     public init(withURL url: URL) throws {
         self.url = url
@@ -27,8 +27,8 @@ public struct PVSQLiteDatabase: @unchecked Sendable {
     }
 }
 
-extension PVSQLiteDatabase: SQLQueryable {
-    package func execute(query: String, parameters: [Any]? = nil) throws -> SQLQueryResponse {
+@_spi(PVLookup) extension PVSQLiteDatabase: SQLQueryable {
+    @_spi(PVLookup) public func execute(query: String, parameters: [Any]? = nil) throws -> SQLQueryResponse {
         var result = SQLQueryResponse()
         let stmt = try connection.prepare(query)
 
