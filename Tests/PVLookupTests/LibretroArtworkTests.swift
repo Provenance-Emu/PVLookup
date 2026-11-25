@@ -8,7 +8,8 @@
 import Testing
 import Foundation
 @testable import PVLookup
-@testable import libretrodb @_spi(PVLookup) import PVSQLiteDatabase
+@testable import libretrodb
+@_spi(PVLookup) import PVSQLiteDatabase
 @testable import ROMMetadataProvider
 import PVSystems
 import PVLookupTypes
