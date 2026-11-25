@@ -6,12 +6,12 @@
 //
 
 import Testing
-import PVLookupLogging
+@_spi(PVLookup) import PVLookupLogging
 import PVSystems
 @testable import PVLookup
 @testable import TheGamesDB
 @testable import PVLookupTypes
-import PVSQLiteDatabase
+@_spi(PVLookup) import PVSQLiteDatabase
 import Foundation
 import PVLookupTestSupport
 

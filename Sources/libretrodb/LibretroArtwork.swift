@@ -4,7 +4,7 @@ import FoundationNetworking
 #endif
 import PVSystems
 import PVLookupTypes
-import PVSQLiteDatabase
+@_spi(PVLookup) import PVSQLiteDatabase
 
 /// Handles artwork URL construction and validation for libretro thumbnails
 public struct LibretroArtwork {

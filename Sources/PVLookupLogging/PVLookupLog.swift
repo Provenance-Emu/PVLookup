@@ -2,7 +2,7 @@ import Foundation
 import os
 
 /// Severity of a PVLookup log message.
-public enum PVLookupLogLevel: Int, Sendable, Comparable {
+@frozen public enum PVLookupLogLevel: Int, Sendable, Comparable {
     case debug, info, warning, error
 
     public static func < (lhs: Self, rhs: Self) -> Bool { lhs.rawValue < rhs.rawValue }
@@ -21,7 +21,7 @@ public enum PVLookupLogLevel: Int, Sendable, Comparable {
 ///     switch level { case .error: ELOG(message, file: file, function: function, line: line) ... }
 /// }
 /// ```
-public enum PVLookupLog {
+@frozen public enum PVLookupLog {
     public typealias Handler = @Sendable (
         _ level: PVLookupLogLevel, _ message: String,
         _ file: String, _ function: String, _ line: Int
@@ -80,24 +80,24 @@ public enum PVLookupLog {
 // The names PVLookup's sources have always used (from Provenance's PVLogging),
 // at `package` access so they never clash with an app's own DLOG/ELOG.
 
-package func DLOG(_ message: @autoclosure () -> String,
+@_spi(PVLookup) public func DLOG(_ message: @autoclosure () -> String,
                   file: String = #fileID, function: String = #function, line: Int = #line) {
     #if DEBUG
     PVLookupLog.emit(.debug, message, file, function, line)
     #endif
 }
 
-package func ILOG(_ message: @autoclosure () -> String,
+@_spi(PVLookup) public func ILOG(_ message: @autoclosure () -> String,
                   file: String = #fileID, function: String = #function, line: Int = #line) {
     PVLookupLog.emit(.info, message, file, function, line)
 }
 
-package func WLOG(_ message: @autoclosure () -> String,
+@_spi(PVLookup) public func WLOG(_ message: @autoclosure () -> String,
                   file: String = #fileID, function: String = #function, line: Int = #line) {
     PVLookupLog.emit(.warning, message, file, function, line)
 }
 
-package func ELOG(_ message: @autoclosure () -> String,
+@_spi(PVLookup) public func ELOG(_ message: @autoclosure () -> String,
                   file: String = #fileID, function: String = #function, line: Int = #line) {
     PVLookupLog.emit(.error, message, file, function, line)
 }

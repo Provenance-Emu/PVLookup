@@ -1,7 +1,7 @@
 import Foundation
 
 /// Errors that can occur when using TheGamesDB
-public enum TheGamesDBError: LocalizedError, Equatable {
+@frozen public enum TheGamesDBError: LocalizedError, Equatable {
     case databaseNotInitialized
     case invalidGameID
     case gameNotFound

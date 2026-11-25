@@ -1,9 +1,9 @@
 import Foundation
-import PVLookupLogging
+@_spi(PVLookup) import PVLookupLogging
 import ZIPFoundation
 import SQLite
 
-public enum SQLiteDatabaseError: Error {
+@frozen public enum SQLiteDatabaseError: Error {
     case databaseNotFound
     case extractionFailed
     case invalidCompressedFile

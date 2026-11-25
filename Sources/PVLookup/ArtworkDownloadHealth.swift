@@ -12,7 +12,7 @@ import Foundation
 // MARK: - Verdict
 
 /// Outcome of judging one artwork download.
-public enum ArtworkDownloadVerdict: Equatable, Sendable {
+@frozen public enum ArtworkDownloadVerdict: Equatable, Sendable {
     /// Body is an image.
     case image
     /// The URL will not give us artwork: 403/404/410, or a non-image body served with 200.
@@ -29,7 +29,7 @@ public enum ArtworkDownloadVerdict: Equatable, Sendable {
 
 // MARK: - Classifier
 
-public enum ArtworkDownloadClassifier {
+@frozen public enum ArtworkDownloadClassifier {
     /// HTTP statuses that mean the URL is unusable (Cloudflare challenge, removed, gone).
     public static let deadStatusCodes: Set<Int> = [403, 404, 410]
 
@@ -67,7 +67,7 @@ public enum ArtworkDownloadClassifier {
 
 // MARK: - Fallback ordering
 
-public enum ArtworkFallbackPlanner {
+@frozen public enum ArtworkFallbackPlanner {
     /// Default cap on how many replacement URLs get downloaded per game.
     public static let defaultMaxAttempts = 4
 

@@ -1,0 +1,36 @@
+name: Release XCFramework
+
+# Cuts a release: builds the XCFramework, then tags a commit whose Package.swift points
+# at it. Tags are made here, not pushed by hand: a hand-pushed tag has no binary and
+# builds from source. https://github.com/Provenance-Emu/.github/blob/main/docs/xcframework-releases.md
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version to release (major.minor.patch)
+        required: true
+        type: string
+      ref:
+        description: Branch or commit to release
+        required: true
+        default: main
+        type: string
+      dry_run:
+        description: Build and check only; tag and publish nothing
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    uses: Provenance-Emu/.github/.github/workflows/release-xcframework.yml@main
+    permissions:
+      contents: write
+    with:
+      version: ${{ inputs.version }}
+      ref: ${{ inputs.ref }}
+      dry_run: ${{ inputs.dry_run }}
+      modules: PVLookupLogging PVLookupTypes ROMMetadataProvider PVSQLiteDatabase TheGamesDB libretrodb OpenVGDB ShiraGame LibretroCheatDB PVLookup

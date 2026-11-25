@@ -21,11 +21,11 @@ import TheGamesDB
 import ShiraGame
 #endif
 import PVSystems
-import PVLookupLogging
+@_spi(PVLookup) import PVLookupLogging
 
 
 // MARK: - Database Type Enums
-public enum LocalDatabases: CaseIterable {
+@frozen public enum LocalDatabases: CaseIterable {
     #if canImport(OpenVGDB)
     case openVGDB
     #endif

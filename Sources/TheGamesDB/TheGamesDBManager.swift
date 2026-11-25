@@ -1,5 +1,5 @@
 import Foundation
-import PVSQLiteDatabase
+@_spi(PVLookup) import PVSQLiteDatabase
 
 /// Manager for TheGamesDB SQLite database
 public actor TheGamesDBManager {

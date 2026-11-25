@@ -5,8 +5,8 @@
 // Provides cheat code lookup by game title or MD5 hash with optional system filtering.
 
 import Foundation
-import PVLookupLogging
-import PVSQLiteDatabase
+@_spi(PVLookup) import PVLookupLogging
+@_spi(PVLookup) import PVSQLiteDatabase
 import SQLite
 
 /// Actor-based service for querying the bundled libretro cheat database.

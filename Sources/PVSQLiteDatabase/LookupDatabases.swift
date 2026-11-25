@@ -8,7 +8,7 @@ import os
 /// time (Scripts/fetch-lookup-databases.sh + databases.lock.json) and copies
 /// into its bundle. A database the app doesn't ship is simply unavailable:
 /// lookups that need it return no result.
-public enum LookupDatabase: String, CaseIterable, Sendable {
+@frozen public enum LookupDatabase: String, CaseIterable, Sendable {
     case libretrodb
     case openvgdb
     case thegamesdb
@@ -33,7 +33,7 @@ public enum LookupDatabase: String, CaseIterable, Sendable {
 }
 
 /// Where a database comes from.
-public enum LookupDatabaseSource: Sendable {
+@frozen public enum LookupDatabaseSource: Sendable {
     /// `<resource>.zip` in `bundle`. It's extracted once into Caches and
     /// re-extracted only when the zip's contents change.
     case bundled(Bundle, resource: String)
@@ -53,7 +53,7 @@ public enum LookupDatabaseSource: Sendable {
 ///     .libretrodb: .bundled(.main, resource: "libretrodb-dreamcast.sqlite"),
 /// ])
 /// ```
-public enum LookupDatabases {
+@frozen public enum LookupDatabases {
     private static let overrides = OSAllocatedUnfairLock<[LookupDatabase: LookupDatabaseSource]>(initialState: [:])
 
     /// Replaces the per-database overrides. Databases not in `sources` use the default.

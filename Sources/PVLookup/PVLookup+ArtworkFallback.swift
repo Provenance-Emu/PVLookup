@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import PVLookupLogging
+@_spi(PVLookup) import PVLookupLogging
 import PVLookupTypes
 import PVSystems
 #if canImport(libretrodb)

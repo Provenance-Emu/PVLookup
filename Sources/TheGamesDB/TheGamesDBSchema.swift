@@ -1,8 +1,8 @@
 import Foundation
-import PVSQLiteDatabase
+@_spi(PVLookup) import PVSQLiteDatabase
 import PVLookupTypes
 import PVSystems
-import PVLookupLogging
+@_spi(PVLookup) import PVLookupLogging
 
 /// Schema for TheGamesDB SQLite database
 public struct TheGamesDBSchema {

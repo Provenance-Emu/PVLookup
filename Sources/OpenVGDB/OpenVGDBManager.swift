@@ -1,6 +1,6 @@
 import Foundation
-import PVSQLiteDatabase
-import PVLookupLogging
+@_spi(PVLookup) import PVSQLiteDatabase
+@_spi(PVLookup) import PVLookupLogging
 
 /// Manager for OpenVGDB SQLite database
 public actor OpenVGDBManager {

@@ -1,5 +1,5 @@
 import Foundation
-import PVSQLiteDatabase
+@_spi(PVLookup) import PVSQLiteDatabase
 
 /// Points PVLookup at the databases fetched into `<package>/.databases/` by
 ///
@@ -9,7 +9,7 @@ import PVSQLiteDatabase
 /// `init()` is fine; it is idempotent). Without the fetch the tests fail with
 /// `databaseNotFound`, instead of passing on a stale copy some earlier run left
 /// in Caches.
-public enum TestDatabases {
+@frozen public enum TestDatabases {
     /// `<package root>/.databases`, found from this file's location.
     public static let directory: URL = URL(fileURLWithPath: #filePath)
         .deletingLastPathComponent()   // PVLookupTestSupport

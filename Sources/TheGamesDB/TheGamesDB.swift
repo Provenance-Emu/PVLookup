@@ -9,12 +9,12 @@
 import Foundation
 import PVLookupTypes
 import PVSystems
-import PVLookupLogging
-import PVSQLiteDatabase
+@_spi(PVLookup) import PVLookupLogging
+@_spi(PVLookup) import PVSQLiteDatabase
 #if canImport(CryptoKit)
 import CryptoKit
 #else
-import Crypto
+internal import Crypto
 #endif
 import ROMMetadataProvider
 
